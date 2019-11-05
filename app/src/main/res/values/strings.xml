@@ -2,4 +2,9 @@
     <string name="app_name">FinancialManager</string>
     <string name="title_activity_account">AccountActivity</string>
     <string name="title_activity_transaction">TransactionActivity</string>
+    <string name="descricao">Descrição:</string>
+    <string name="nome_da_conta">Nome da conta</string>
+    <string name="saldo_inicial">Saldo inicial:</string>
+    <string name="zero_reais">R$ 0,00</string>
+    <string name="adicionar_conta">Adicionar Conta</string>
 </resources>
