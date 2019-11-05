@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">FinancialManager</string>
+    <string name="title_activity_account">AccountActivity</string>
+    <string name="title_activity_transaction">TransactionActivity</string>
+</resources>
