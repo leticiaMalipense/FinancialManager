@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.ifsp.scl.financialmanager.R
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.floating_menu.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class MainActivity : AppCompatActivity() {
