@@ -35,7 +35,7 @@ class AccountActivity : AppCompatActivity() {
             val description = edtDescription.text.toString();
             val value = edtValue.text.toString().toDouble();
 
-            val account: Account = Account(description, value)
+            val account: Account = Account( 0, description, value)
 
             accountController.createAccount(account)
 

@@ -1,68 +1,77 @@
 package br.edu.ifsp.scl.financialmanager.data
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import br.edu.ifsp.scl.financialmanager.model.Account
-import kotlinx.android.synthetic.main.activity_account.*
 import java.sql.SQLException
 
 class AccountDaoImpl(context: Context) : AccountDao {
 
-    val NOME_BD = "financial.manager.db"
-    val MODO_BD = Context.MODE_PRIVATE
+    var dbHelper: SqlHelper
+    var database: SQLiteDatabase
 
-    val ACCOUNT_TABLE = ("CREATE TABLE IF NOT EXISTS ACCOUNT ( ID INTEGER PRIMARY KEY AUTOINCREMENT, DESCRIPTION TEXT, VALUE NUMERIC )")
-
-    val sqliteBd: SQLiteDatabase
     init{
-        sqliteBd = context.openOrCreateDatabase(NOME_BD, MODO_BD, null)
-        try {
-            sqliteBd.execSQL(ACCOUNT_TABLE)
-        }
-        catch (e: SQLException) {
-            e.printStackTrace()
-        }
+        dbHelper = SqlHelper(context)
+        database =  dbHelper.getReadableDatabase();
+
     }
 
     override fun create(account: Account) {
+        database =  dbHelper.getReadableDatabase();
 
-        var query = "INSERT INTO ACCOUNT (DESCRIPTION, VALUE) VALUES ('${account.description}' , ${account.value});"
+        val values = ContentValues()
+        values.put(SqlHelper.Constants.KEY_DESCRIPTION, account.description)
+        values.put(SqlHelper.Constants.KEY_VALUE, account.value)
 
         try {
-            sqliteBd.execSQL(query)
+            val id = database.insert(SqlHelper.Constants.TABLE_ACCOUNT, null, values)
         }
         catch (e: SQLException) {
             e.printStackTrace()
         }
+        finally {
+            database.close()
+        }
+
     }
 
     override fun delete(id: Int) {
-        var query = "DELETE FROM ACCOUNT WHERE ID = ${id};"
+        database =  dbHelper.getReadableDatabase();
 
         try {
-            sqliteBd.execSQL(query)
+            database.delete(SqlHelper.Constants.TABLE_ACCOUNT,SqlHelper.Constants.KEY_ID + "=" + id, null )
         }
         catch (e: SQLException) {
             e.printStackTrace()
         }
+        finally {
+            database.close()
+        }
+
     }
 
     override fun findAll(): List<Account> {
+        database =  dbHelper.getReadableDatabase();
+
         var accounts: ArrayList<Account> = ArrayList()
-        var query = "SELECT * FROM ACCOUNT WHERE 1=1;"
 
         try {
-            val cursor = sqliteBd.rawQuery(query, arrayOf())
-            while (cursor.moveToNext()){
-                val description = cursor.getString(cursor.getColumnIndex("DESCRIPTION"));
-                val value = cursor.getDouble(cursor.getColumnIndex("VALUE"));
+            val cursor = database.query(SqlHelper.Constants.TABLE_ACCOUNT, null, null,null, null, null, null)
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(0)
+                val description = cursor.getString(1)
+                val value = cursor.getDouble(2)
 
-                val account: Account = Account(description, value)
+                val account = Account(id, description, value)
                 accounts.add(account)
+
             }
         }
         catch (e: SQLException) {
             e.printStackTrace()
+        }finally {
+            database.close()
         }
 
         return accounts
