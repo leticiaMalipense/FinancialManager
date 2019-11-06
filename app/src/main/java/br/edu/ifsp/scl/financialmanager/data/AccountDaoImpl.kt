@@ -14,6 +14,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
     init{
         dbHelper = SqlHelper(context)
         database =  dbHelper.getReadableDatabase();
+        database.close()
 
     }
 
