@@ -22,8 +22,8 @@ class AccountService(context: Context) {
         accountDao.delete(accountId)
     }
 
-    fun findAll() {
-        accountDao.findAll()
+    fun findAll(): List<Account> {
+        return accountDao.findAll()
     }
 
 }

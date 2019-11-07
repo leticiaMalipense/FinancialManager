@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 
 class AccountActivity : AppCompatActivity() {
 
-    lateinit var accountController: AccountController
+    lateinit var controller: AccountController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,10 +23,10 @@ class AccountActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        accountController = AccountController(this)
+        controller = AccountController(this)
         btnCreateAccount.setOnClickListener(::onClickCreateAccount)
 
-        accountController.findAllAccount()
+        controller.findAllAccount()
     }
 
     fun onClickCreateAccount(v: View) {
@@ -37,9 +37,13 @@ class AccountActivity : AppCompatActivity() {
 
             val account: Account = Account( 0, description, value)
 
-            accountController.createAccount(account)
+            controller.createAccount(account)
+
+            //MainActivity.refreshListAccount(account)
 
             Toast.makeText(applicationContext, "Conta incluida com sucesso", Toast.LENGTH_LONG).show()
+
+            finish()
         }
 
     }

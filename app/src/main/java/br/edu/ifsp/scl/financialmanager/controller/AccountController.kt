@@ -1,10 +1,10 @@
 package br.edu.ifsp.scl.financialmanager.controller
 
+import android.app.Activity
 import br.edu.ifsp.scl.financialmanager.Service.AccountService
 import br.edu.ifsp.scl.financialmanager.model.Account
-import br.edu.ifsp.scl.financialmanager.view.AccountActivity
 
-class AccountController(val view: AccountActivity) {
+class AccountController(val view: Activity) {
 
     val model: AccountService
 
@@ -22,7 +22,7 @@ class AccountController(val view: AccountActivity) {
         //view.atualizaView(account)
     }
 
-    fun findAllAccount() {
-        model.findAll()
+    fun findAllAccount(): List<Account> {
+        return model.findAll()
     }
 }

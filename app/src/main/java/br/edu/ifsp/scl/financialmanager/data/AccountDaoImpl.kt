@@ -9,13 +9,10 @@ import java.sql.SQLException
 class AccountDaoImpl(context: Context) : AccountDao {
 
     var dbHelper: SqlHelper
-    var database: SQLiteDatabase
+    lateinit var database: SQLiteDatabase
 
     init{
         dbHelper = SqlHelper(context)
-        database =  dbHelper.getReadableDatabase();
-        database.close()
-
     }
 
     override fun create(account: Account) {

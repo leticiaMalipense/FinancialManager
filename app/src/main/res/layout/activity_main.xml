@@ -18,44 +18,57 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            app:cardCornerRadius="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <RelativeLayout
-                android:layout_width="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/txtCurrentBalance"
+                style="@style/LabelStyle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="16dp">
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:gravity="center"
+                android:text="Saldo Atual" />
 
             <TextView
-                    android:id="@+id/txtCurrentBalance"
-                    style="@style/LabelsStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:gravity="center"
-                    android:text="Saldo Atual" />
-
-            <TextView
-                    android:id="@+id/txtCurrentBalanceValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/txtCurrentBalance"
-                    android:layout_marginStart="10dp"
-                    android:layout_toEndOf="@+id/txtCurrentBalance"
-                    android:text="R$: 500,00"
-                    android:textSize="20sp" />
+                android:id="@+id/txtCurrentBalanceValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/txtCurrentBalance"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@+id/txtCurrentBalance"
+                android:text="R$: 500,00"
+                android:textSize="20sp" />
         </RelativeLayout>
 
 
     </androidx.cardview.widget.CardView>
 
-  <include layout="@layout/floating_menu"></include>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/accountsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/floating_menu"></include>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
