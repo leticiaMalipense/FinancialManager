@@ -14,8 +14,8 @@ class AccountService(context: Context) {
 
     }
 
-    fun create(account: Account) {
-        accountDao.create(account)
+    fun create(account: Account): Int{
+        return accountDao.create(account)
     }
 
     fun delete(accountId: Int) {

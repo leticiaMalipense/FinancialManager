@@ -3,8 +3,9 @@ package br.edu.ifsp.scl.financialmanager.controller
 import android.app.Activity
 import br.edu.ifsp.scl.financialmanager.Service.AccountService
 import br.edu.ifsp.scl.financialmanager.model.Account
+import br.edu.ifsp.scl.financialmanager.view.AccountActivity
 
-class AccountController(val view: Activity) {
+class AccountController(val view: AccountActivity) {
 
     val model: AccountService
 
@@ -13,13 +14,13 @@ class AccountController(val view: Activity) {
     }
 
     fun createAccount(account: Account) {
-        model.create(account)
-        //view.atualizaView(account)
+        val id = model.create(account)
+        account.id = id
+        view.refreshView(account)
     }
 
     fun deleteAccount(accountId: Int) {
         model.delete(accountId)
-        //view.atualizaView(account)
     }
 
     fun findAllAccount(): List<Account> {

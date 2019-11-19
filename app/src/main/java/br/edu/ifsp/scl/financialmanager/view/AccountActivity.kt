@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -10,6 +11,7 @@ import br.edu.ifsp.scl.financialmanager.controller.AccountController
 import br.edu.ifsp.scl.financialmanager.model.Account
 import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.toolbar.*
+
 
 class AccountActivity : AppCompatActivity() {
 
@@ -39,13 +41,15 @@ class AccountActivity : AppCompatActivity() {
 
             controller.createAccount(account)
 
-            //MainActivity.refreshListAccount(account)
-
             Toast.makeText(applicationContext, "Conta incluida com sucesso", Toast.LENGTH_LONG).show()
 
             finish()
         }
 
+    }
+
+    fun refreshView(account: Account) {
+        setResult(RESULT_OK, Intent().putExtra(MainActivity.Constantes.ACCOUNT, account))
     }
 
     fun validateFieldsRequeried() : Boolean {

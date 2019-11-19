@@ -15,7 +15,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
         dbHelper = SqlHelper(context)
     }
 
-    override fun create(account: Account) {
+    override fun create(account: Account): Int {
         database =  dbHelper.getReadableDatabase();
 
         val values = ContentValues()
@@ -24,6 +24,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
 
         try {
             val id = database.insert(SqlHelper.Constants.TABLE_ACCOUNT, null, values)
+            return id.toInt()
         }
         catch (e: SQLException) {
             e.printStackTrace()
@@ -31,6 +32,8 @@ class AccountDaoImpl(context: Context) : AccountDao {
         finally {
             database.close()
         }
+
+        return 0;
 
     }
 

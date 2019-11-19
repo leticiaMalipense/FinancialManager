@@ -8,11 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.model.Account
-import java.util.*
 
 class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdapter.AccountViewHolder>() {
     var accounts: MutableList<Account>
     lateinit var context: Context
+    lateinit var clickListener: ItemClickListener
 
     init {
         this.accounts = mutableListOf<Account>()
@@ -49,13 +49,25 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
         }
 
         override fun onClick(v: View) {
-
+            if (clickListener != null)
+                clickListener.onItemClick(adapterPosition)
         }
     }
 
-    fun addAccountAdapter(account: Account) {
-        accounts.add(account)
+    fun refreshAdapter(account: Account) {
+        this.accounts.add(account)
         notifyDataSetChanged()
     }
+
+    interface ItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
+    companion object {
+        fun setClickListener(accountAdapter: AccountAdapter, itemClickListener: ItemClickListener) {
+            accountAdapter.clickListener = itemClickListener
+        }
+    }
+
 
 }
