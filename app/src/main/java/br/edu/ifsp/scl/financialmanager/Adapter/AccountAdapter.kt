@@ -54,8 +54,13 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
         }
     }
 
-    fun refreshAdapter(account: Account) {
+    fun addAccount(account: Account) {
         this.accounts.add(account)
+        notifyDataSetChanged()
+    }
+
+    fun removeAccount(account: Account) {
+        this.accounts.remove(account)
         notifyDataSetChanged()
     }
 

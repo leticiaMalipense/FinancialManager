@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -45,10 +46,10 @@ class AccountDetails : AppCompatActivity() {
         val id = item.itemId
         if (id == R.id.deleteAccount) {
             val dao = AccountService(this)
-            dao.delete(this.account.id)
-
+            dao.delete(account.id)
 
             Toast.makeText(applicationContext, "Conta excluída com sucesso", Toast.LENGTH_LONG).show()
+            setResult(RESULT_OK, Intent().putExtra(MainActivity.Constantes.ACCOUNT, account))
             finish()
 
         }
