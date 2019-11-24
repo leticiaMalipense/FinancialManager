@@ -12,7 +12,7 @@ enum class Classification(val id: Int, val description: String) {
     LUZ(9,"Luz"),
     AGUA(10,"Água"),
     TELEFONE(11,"Telefone"),
-    ETC(12  ,"etc");
+    ETC(12  ,"Outro");
 
     override fun toString(): String {
         return description

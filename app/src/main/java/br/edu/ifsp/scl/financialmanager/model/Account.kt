@@ -35,9 +35,10 @@ data class Account(var id: Int, var description: String, var value: Double) : Pa
     }
 
     override fun toString(): String {
-        return description
 
+        return this.description ?: "Sem Descrição"
     }
+
 }
 
 
