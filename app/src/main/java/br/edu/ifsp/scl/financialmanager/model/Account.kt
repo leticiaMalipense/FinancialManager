@@ -34,6 +34,11 @@ data class Account(var id: Int, var description: String?, var value: Double) : P
             return arrayOfNulls(size)
         }
     }
+
+    override fun toString(): String {
+        return this.description ?: "Sem Descrição"
+    }
+
 }
 
 

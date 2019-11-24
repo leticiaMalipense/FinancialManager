@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
         val ACCOUNT_REQUEST_CODE = 1
         val ACCOUNT_DETAILS_REQUEST_CODE = 2
         val TRANSACTIONS_REQUEST_CODE = 3
+        val EXTRACTS_REQUEST_CODE = 4
+        val EXTRACT_RESULT_REQUEST_CODE = 5
     }
 
 
@@ -112,6 +114,11 @@ class MainActivity : AppCompatActivity() {
         actTransaction.setOnClickListener(View.OnClickListener {
             val i = Intent(applicationContext, TransactionActivity::class.java)
             startActivityForResult(i, Constantes.TRANSACTIONS_REQUEST_CODE)
+        })
+
+        actExtracts.setOnClickListener(View.OnClickListener {
+            val i = Intent(applicationContext, ExtractsActivity::class.java)
+            startActivityForResult(i, Constantes.EXTRACTS_REQUEST_CODE)
         })
     }
 
