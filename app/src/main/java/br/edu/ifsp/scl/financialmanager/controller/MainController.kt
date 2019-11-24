@@ -15,4 +15,13 @@ class MainController(val view: MainActivity) {
     fun findAllAccount(): List<Account> {
         return model.findAll()
     }
+
+    fun findById(accountId: Int): Account {
+        return model.findById(accountId)
+    }
+
+    fun getCurrentBalance(): Double {
+        return model.getCurrentBalance()
+    }
+
 }

@@ -49,8 +49,7 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
         }
 
         override fun onClick(v: View) {
-            if (clickListener != null)
-                clickListener.onItemClick(adapterPosition)
+            clickListener.onItemClick(adapterPosition)
         }
     }
 
@@ -63,6 +62,11 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
         this.accounts.remove(account)
         notifyDataSetChanged()
     }
+
+    fun updateAccount(account: Account) {
+
+    }
+
 
     interface ItemClickListener {
         fun onItemClick(position: Int)

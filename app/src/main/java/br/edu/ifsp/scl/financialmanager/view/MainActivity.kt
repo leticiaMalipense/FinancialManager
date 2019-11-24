@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
 
     object Constantes{
         val ACCOUNT = "ACCOUNT"
+        val ACCOUNT_ID = "ACCOUNT_ID"
         val ACCOUNT_REQUEST_CODE = 1
         val ACCOUNT_DETAILS_REQUEST_CODE = 2
         val TRANSACTIONS_REQUEST_CODE = 3
@@ -75,26 +76,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Constantes.ACCOUNT_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK){
 
+        currentValue = controller.getCurrentBalance()
+        txtCurrentBalanceValue.setText("R$: $currentValue")
+
+        if (requestCode == Constantes.ACCOUNT_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK){
             val account = data?.getParcelableExtra<Account>(Constantes.ACCOUNT)
 
             if (account != null) {
                 adapter.addAccount(account)
-                currentValue += account.value
-                txtCurrentBalanceValue.setText("R$: $currentValue")
             }
         }
         else if (requestCode == Constantes.ACCOUNT_DETAILS_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK){
-
             val account = data?.getParcelableExtra<Account>(Constantes.ACCOUNT)
 
             if (account != null) {
                 adapter.removeAccount(account)
-                currentValue -= account.value
-                txtCurrentBalanceValue.setText("R$: $currentValue")
+            }
+        }
+
+        else if (requestCode == Constantes.TRANSACTIONS_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK){
+            val accountId = data?.getIntExtra(Constantes.ACCOUNT_ID, 0)
+            val account = accountId?.let { controller.findById(it) }
+
+            if (account != null) {
+                adapter.updateAccount(account)
             }
         }
 

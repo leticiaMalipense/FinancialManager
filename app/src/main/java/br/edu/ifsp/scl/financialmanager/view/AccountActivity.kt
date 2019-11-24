@@ -34,8 +34,8 @@ class AccountActivity : AppCompatActivity() {
     fun onClickCreateAccount(v: View) {
 
         if(validateFieldsRequeried()) {
-            val description = edtDescription.text.toString();
-            val value = edtValue.text.toString().toDouble();
+            val description = edtDescription.text.toString()
+            val value = edtValue.text.toString().toDouble()
 
             val account: Account = Account( 0, description, value)
 

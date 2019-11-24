@@ -38,6 +38,25 @@ data class Account(var id: Int, var description: String, var value: Double) : Pa
         return this.description ?: "Sem Descrição"
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Account
+
+        if (id != other.id) return false
+        if (description != other.description) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id
+        result = 31 * result + description.hashCode()
+        return result
+    }
+
+
 }
 
 

@@ -23,6 +23,7 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
         values.put(SqlHelper.Constants.KEY_DESCRIPTION, transaction.description)
         values.put(SqlHelper.Constants.KEY_VALUE, transaction.value)
         values.put(SqlHelper.Constants.KEY_ACCOUNT_ID, transaction.accountId)
+        values.put(SqlHelper.Constants.KEY_TYPE_ID, transaction.typeId)
         values.put(SqlHelper.Constants.KEY_CLASSIFICATION_ID, transaction.classificationId)
         values.put(SqlHelper.Constants.KEY_PERIOD_ID, transaction.periodId)
 
@@ -56,6 +57,21 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
 
     }
 
+    override fun deleteAllByAccount(accountId: Int) {
+        database =  dbHelper.getReadableDatabase();
+
+        try {
+            database.delete(SqlHelper.Constants.TABLE_TRANSACTION,SqlHelper.Constants.KEY_ACCOUNT_ID + "=" + accountId, null )
+        }
+        catch (e: SQLException) {
+            e.printStackTrace()
+        }
+        finally {
+            database.close()
+        }
+
+    }
+
     override fun findAll(): List<Transaction> {
         database =  dbHelper.getReadableDatabase();
 
@@ -68,10 +84,11 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
                 val description = cursor.getString(1)
                 val value = cursor.getDouble(2)
                 val accountId = cursor.getInt(3)
+                val typeId = cursor.getInt(4)
                 val classificationId = cursor.getInt(4)
-                val periodId = cursor.getInt(5)
+                val periodId = cursor.getInt(6)
 
-                val transaction = Transaction(id, description, value, accountId, classificationId, periodId)
+                val transaction = Transaction(id, description, value, accountId, typeId, classificationId, periodId)
                 transactions.add(transaction)
 
             }

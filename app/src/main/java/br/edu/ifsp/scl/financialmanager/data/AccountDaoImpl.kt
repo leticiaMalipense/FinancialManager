@@ -52,6 +52,70 @@ class AccountDaoImpl(context: Context) : AccountDao {
 
     }
 
+
+    override fun getCurrentBalance(): Double {
+        database =  dbHelper.getReadableDatabase();
+
+        try {
+            val cursor = database.rawQuery("select sum(value) from "+ SqlHelper.Constants.TABLE_ACCOUNT, null);
+            while (cursor.moveToNext()) {
+                return cursor.getDouble(0)
+            }
+        }
+        catch (e: SQLException) {
+            e.printStackTrace()
+        }finally {
+            database.close()
+        }
+
+        return 0.0
+    }
+
+
+    override fun updateBalance(accountId: Int, value: Double) {
+        database =  dbHelper.getReadableDatabase();
+
+        try {
+            val values = ContentValues()
+            values.put(SqlHelper.Constants.KEY_VALUE, value)
+
+            database.update(
+                SqlHelper.Constants.TABLE_ACCOUNT, values, SqlHelper.Constants.KEY_ID+ "=" + accountId, null
+            )
+        }
+        catch (e: SQLException) {
+            e.printStackTrace()
+        }
+        finally {
+            database.close()
+        }
+
+    }
+
+    override fun findById(accountId: Int): Account {
+        database =  dbHelper.getReadableDatabase();
+
+        lateinit var account: Account
+
+        try {
+            val cursor = database.query(SqlHelper.Constants.TABLE_ACCOUNT, null, SqlHelper.Constants.KEY_ID+ "=" + accountId,null, null, null, null)
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(0)
+                val description = cursor.getString(1)
+                val value = cursor.getDouble(2)
+
+                account = Account(id, description, value)
+            }
+        }
+        catch (e: SQLException) {
+            e.printStackTrace()
+        }finally {
+            database.close()
+        }
+
+        return account
+    }
+
     override fun findAll(): List<Account> {
         database =  dbHelper.getReadableDatabase();
 

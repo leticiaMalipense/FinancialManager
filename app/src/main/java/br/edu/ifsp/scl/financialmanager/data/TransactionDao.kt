@@ -6,6 +6,7 @@ interface TransactionDao {
 
     fun create(account: Transaction) : Int
     fun delete(id: Int)
+    fun deleteAllByAccount(accountId: Int)
     fun findAll() : List<Transaction>
 
 }
