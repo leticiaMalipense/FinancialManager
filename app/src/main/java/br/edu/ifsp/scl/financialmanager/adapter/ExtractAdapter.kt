@@ -1,4 +1,4 @@
-package br.edu.ifsp.scl.financialmanager.Adapter
+package br.edu.ifsp.scl.financialmanager.adapter
 
 import android.content.Context
 import android.view.LayoutInflater

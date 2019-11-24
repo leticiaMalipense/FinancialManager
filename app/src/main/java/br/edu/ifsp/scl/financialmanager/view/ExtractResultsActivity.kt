@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.edu.ifsp.scl.financialmanager.Adapter.ExtractAdapter
+import br.edu.ifsp.scl.financialmanager.adapter.ExtractAdapter
 import br.edu.ifsp.scl.financialmanager.R
 import kotlinx.android.synthetic.main.activity_extract_results.*
 import kotlinx.android.synthetic.main.toolbar.*

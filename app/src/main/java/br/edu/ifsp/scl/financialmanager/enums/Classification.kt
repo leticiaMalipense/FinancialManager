@@ -1,6 +1,9 @@
 package br.edu.ifsp.scl.financialmanager.enums
 
-enum class Classification(val id: Int, val description: String) {
+import java.io.Serializable
+
+enum class Classification(val id: Int, val description: String): Serializable {
+
     ALIMENTACAO(1,"Alimentação"),
     SAUDE(2,"Saúde"),
     TRANSPORTE(3,"Transporte"),
@@ -17,4 +20,5 @@ enum class Classification(val id: Int, val description: String) {
     override fun toString(): String {
         return description
     }
+
 }
