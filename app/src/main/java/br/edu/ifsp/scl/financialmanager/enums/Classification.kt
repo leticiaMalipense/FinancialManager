@@ -1,8 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.enums
 
-import java.io.Serializable
-
-enum class Classification(val id: Int, val description: String): Serializable {
+enum class Classification(val id: Int, val description: String) {
 
     ALIMENTACAO(1,"Alimentação"),
     SAUDE(2,"Saúde"),

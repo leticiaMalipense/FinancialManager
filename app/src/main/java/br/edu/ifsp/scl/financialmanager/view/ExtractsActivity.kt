@@ -10,7 +10,7 @@ import android.widget.CompoundButton
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.service.AccountService
 import br.edu.ifsp.scl.financialmanager.enums.Classification
-import br.edu.ifsp.scl.financialmanager.enums.TransectionType
+import br.edu.ifsp.scl.financialmanager.enums.TransactionType
 import kotlinx.android.synthetic.main.activity_extracts.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -36,7 +36,7 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         val adapterClassification = ArrayAdapter(this, android.R.layout.simple_spinner_item, Classification.values())
         spExtractClassification.adapter = adapterClassification
 
-        val adapterType = ArrayAdapter(this, android.R.layout.simple_spinner_item, TransectionType.values())
+        val adapterType = ArrayAdapter(this, android.R.layout.simple_spinner_item, TransactionType.values())
         spExtractType.adapter = adapterType
 
         btnGenerateExtract.setOnClickListener(::generateExtract)

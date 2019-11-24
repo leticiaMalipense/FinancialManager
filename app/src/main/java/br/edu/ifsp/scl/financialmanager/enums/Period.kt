@@ -1,8 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.enums
 
-import java.io.Serializable
-
-enum class Period(val id: Int, val description: String): Serializable {
+enum class Period(val id: Int, val description: String) {
 
     NUNCA(1,"Nunca"),
     DIARIAMENTE(2,"Diariamente"),
