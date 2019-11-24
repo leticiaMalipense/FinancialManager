@@ -7,7 +7,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import br.edu.ifsp.scl.financialmanager.Adapter.AccountAdapter
+import br.edu.ifsp.scl.financialmanager.adapter.AccountAdapter
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.controller.MainController
 import br.edu.ifsp.scl.financialmanager.model.Account

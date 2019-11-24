@@ -1,4 +1,4 @@
-package br.edu.ifsp.scl.financialmanager.Service
+package br.edu.ifsp.scl.financialmanager.service
 
 import android.content.Context
 import br.edu.ifsp.scl.financialmanager.data.AccountDao

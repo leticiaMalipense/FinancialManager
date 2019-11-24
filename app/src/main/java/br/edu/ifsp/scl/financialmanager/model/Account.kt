@@ -4,14 +4,13 @@ import android.os.Parcel
 import android.os.Parcelable
 
 
-data class Account(var id: Int, var description: String?, var value: Double) : Parcelable {
+data class Account(var id: Int, var description: String, var value: Double) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString(),
+        parcel.readString()!!,
         parcel.readDouble()
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel?, flags: Int) {
         if (parcel != null) {
@@ -33,6 +32,11 @@ data class Account(var id: Int, var description: String?, var value: Double) : P
         override fun newArray(size: Int): Array<Account?> {
             return arrayOfNulls(size)
         }
+    }
+
+    override fun toString(): String {
+        return description
+
     }
 }
 

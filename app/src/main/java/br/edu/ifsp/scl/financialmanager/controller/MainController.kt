@@ -1,6 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.controller
 
-import br.edu.ifsp.scl.financialmanager.Service.AccountService
+import br.edu.ifsp.scl.financialmanager.service.AccountService
 import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.view.MainActivity
 

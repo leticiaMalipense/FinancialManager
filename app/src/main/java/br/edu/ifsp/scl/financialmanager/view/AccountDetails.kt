@@ -7,7 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import br.edu.ifsp.scl.financialmanager.R
-import br.edu.ifsp.scl.financialmanager.Service.AccountService
+import br.edu.ifsp.scl.financialmanager.service.AccountService
 import br.edu.ifsp.scl.financialmanager.model.Account
 import kotlinx.android.synthetic.main.activity_account_details.*
 import kotlinx.android.synthetic.main.toolbar.*
@@ -45,8 +45,8 @@ class AccountDetails : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.deleteAccount) {
-            val dao = AccountService(this)
-            dao.delete(account.id)
+            val service = AccountService(this)
+            service.delete(account.id)
 
             Toast.makeText(applicationContext, "Conta excluída com sucesso", Toast.LENGTH_LONG).show()
             setResult(RESULT_OK, Intent().putExtra(MainActivity.Constantes.ACCOUNT, account))

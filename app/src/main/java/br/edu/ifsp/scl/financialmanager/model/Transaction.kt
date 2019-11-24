@@ -2,15 +2,18 @@ package br.edu.ifsp.scl.financialmanager.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import br.edu.ifsp.scl.financialmanager.enums.Classification
+import br.edu.ifsp.scl.financialmanager.enums.Period
 
-data class Transaction(var id: Int, var description: String?, var value: Double) : Parcelable {
+data class Transaction(var id: Int, var description: String, var value: Double, var account: Account, var classification: Classification, var period: Period) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.readString(),
-        parcel.readDouble()
-    ) {
-    }
+        parcel.readString()!!,
+        parcel.readDouble(),
+        parcel.readParcelable<Account>(account)
+
+    )
 
     override fun writeToParcel(parcel: Parcel?, flags: Int) {
         if (parcel != null) {
@@ -33,7 +36,12 @@ data class Transaction(var id: Int, var description: String?, var value: Double)
             return arrayOfNulls(size)
         }
     }
+
+    override fun toString(): String {
+        return super.toString()
+    }
 }
+
 
 
 
