@@ -7,5 +7,7 @@ interface AccountDao {
     fun create(account: Account) : Int
     fun delete(id: Int)
     fun findAll() : List<Account>
+    fun findByDescription(description: String): Account?
+    fun update(account: Account)
 
 }

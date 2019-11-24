@@ -11,6 +11,7 @@ import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.service.AccountService
 import br.edu.ifsp.scl.financialmanager.enums.Classification
 import br.edu.ifsp.scl.financialmanager.enums.TransactionType
+import br.edu.ifsp.scl.financialmanager.service.TransactionService
 import kotlinx.android.synthetic.main.activity_extracts.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -40,6 +41,9 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         spExtractType.adapter = adapterType
 
         btnGenerateExtract.setOnClickListener(::generateExtract)
+
+        var transactionService = TransactionService(this)
+        print(transactionService.findAll())
     }
 
     fun generateExtract(v: View) {

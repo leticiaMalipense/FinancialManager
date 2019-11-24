@@ -7,183 +7,211 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.TransactionActivity">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.TransactionActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
+        <TextView
+            android:id="@+id/txtPeriodDate"
+            style="@style/LabelStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Data:"
+            app:layout_constraintEnd_toEndOf="@+id/spClassification"
+            app:layout_constraintStart_toStartOf="@+id/spClassification"
+            app:layout_constraintTop_toBottomOf="@+id/spClassification" />
+
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             app:layout_constraintTop_toTopOf="parent">
 
-        <include layout="@layout/toolbar" />
+            <include layout="@layout/toolbar" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
-    <RadioGroup
-        android:id="@+id/rdType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" >
-        <RadioButton android:id="@+id/rdCredit"
+        <RadioGroup
+            android:id="@+id/rdType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+            <RadioButton
+                android:id="@+id/rdCredit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:onClick="onRadioButtonClicked"
+                android:tag="1"
+                android:text="Crédito" />
+
+            <RadioButton
+                android:id="@+id/rdDebit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onRadioButtonClicked"
+                android:tag="2"
+                android:text="Débito" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/txtDescTransaction"
+            style="@style/LabelStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="@string/descricao"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rdType" />
+
+        <EditText
+            android:id="@+id/edtDescTransaction"
+            style="@style/LabelStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:hint="Nome da transação"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtDescTransaction" />
+
+        <TextView
+            android:id="@+id/txtValueTransaction"
+            style="@style/LabelStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="Valor:"
+            app:layout_constraintStart_toStartOf="@+id/edtDescTransaction"
+            app:layout_constraintTop_toBottomOf="@+id/edtDescTransaction" />
+
+        <EditText
+            android:id="@+id/edtValueTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:hint="@string/zero_reais"
+            android:inputType="numberDecimal"
+            app:layout_constraintStart_toStartOf="@+id/txtValueTransaction"
+            app:layout_constraintTop_toBottomOf="@+id/txtValueTransaction" />
+
+
+        <TextView
+            android:id="@+id/txtAccountTransaction"
+            style="@style/LabelStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="Conta:"
+            app:layout_constraintStart_toStartOf="@+id/edtValueTransaction"
+            app:layout_constraintTop_toBottomOf="@+id/edtValueTransaction" />
+
+        <Spinner
+            android:id="@+id/spAccounts"
+            style="@style/LabelStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="@+id/txtAccountTransaction"
+            app:layout_constraintTop_toBottomOf="@+id/txtAccountTransaction" />
+
+        <TextView
+            android:id="@+id/txtTypeTransaction"
+            style="@style/LabelStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:text="Tipo de transação:"
+            app:layout_constraintStart_toStartOf="@+id/spAccounts"
+            app:layout_constraintTop_toBottomOf="@+id/spAccounts" />
+
+
+        <Spinner
+            android:id="@+id/spClassification"
+            style="@style/LabelStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="@+id/txtTypeTransaction"
+            app:layout_constraintTop_toBottomOf="@+id/txtTypeTransaction" />
+
+        <TextView
+            android:id="@+id/txtPeriod"
+            style="@style/LabelStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Repetir:"
+            app:layout_constraintEnd_toEndOf="@+id/edtTransactionDate"
+            app:layout_constraintStart_toStartOf="@+id/edtTransactionDate"
+            app:layout_constraintTop_toBottomOf="@+id/edtTransactionDate" />
+
+        <Spinner
+            android:id="@+id/spPeriod"
+            style="@style/LabelStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintStart_toStartOf="@+id/txtPeriod"
+            app:layout_constraintTop_toBottomOf="@+id/txtPeriod" />
+
+        <Button
+            android:id="@+id/btnCreateTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Crédito"
-            android:onClick="onRadioButtonClicked"/>
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/custom_button"
+            android:padding="20dp"
+            android:text="@string/adicionar_conta"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spPeriod" />
 
-        <RadioButton
-            android:id="@+id/rdDebit"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/edtTransactionDate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked"
-            android:text="Débito" />
-    </RadioGroup>
-
-    <TextView
-        android:id="@+id/txtDescTransaction"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="@string/descricao"
-        style="@style/LabelStyle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rdType" />
-
-    <EditText
-        android:id="@+id/edtDescTransaction"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Nome da transação"
-        style="@style/LabelStyle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDescTransaction" />
-
-    <TextView
-        android:id="@+id/txtValueTransaction"
-        style="@style/LabelStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Valor:"
-        app:layout_constraintStart_toStartOf="@+id/edtDescTransaction"
-        app:layout_constraintTop_toBottomOf="@+id/edtDescTransaction" />
-
-    <EditText
-        android:id="@+id/edtValueTransaction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:inputType="numberDecimal"
-        android:hint="@string/zero_reais"
-        app:layout_constraintStart_toStartOf="@+id/txtValueTransaction"
-        app:layout_constraintTop_toBottomOf="@+id/txtValueTransaction" />
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="dd/mm/aaaa"
+            android:inputType="date"
+            app:layout_constraintEnd_toEndOf="@+id/txtPeriodDate"
+            app:layout_constraintStart_toStartOf="@+id/txtPeriodDate"
+            app:layout_constraintTop_toBottomOf="@+id/txtPeriodDate" />
 
 
-    <TextView
-        android:id="@+id/txtAccountTransaction"
-        style="@style/LabelStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Conta:"
-        app:layout_constraintStart_toStartOf="@+id/edtValueTransaction"
-        app:layout_constraintTop_toBottomOf="@+id/edtValueTransaction" />
-
-    <Spinner
-        android:id="@+id/spAccounts"
-        style="@style/LabelStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintStart_toStartOf="@+id/txtAccountTransaction"
-        app:layout_constraintTop_toBottomOf="@+id/txtAccountTransaction" />
-
-    <TextView
-        android:id="@+id/txtTypeTransaction"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/LabelStyle"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Tipo de transação:"
-        app:layout_constraintStart_toStartOf="@+id/spAccounts"
-        app:layout_constraintTop_toBottomOf="@+id/spAccounts" />
-
-
-    <Spinner
-        android:id="@+id/spClassification"
-        style="@style/LabelStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintStart_toStartOf="@+id/txtTypeTransaction"
-        app:layout_constraintTop_toBottomOf="@+id/txtTypeTransaction" />
-
-    <TextView
-        android:id="@+id/txtPeriod"
-        style="@style/LabelStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Repetir:"
-        app:layout_constraintStart_toStartOf="@+id/spClassification"
-        app:layout_constraintTop_toBottomOf="@+id/spClassification" />
-
-    <Spinner
-        android:id="@+id/spPeriod"
-        style="@style/LabelStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintStart_toStartOf="@+id/txtPeriod"
-        app:layout_constraintTop_toBottomOf="@+id/txtPeriod" />
-
-    <Button
-        android:id="@+id/btnCreateTransaction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/custom_button"
-        android:padding="20dp"
-        android:text="@string/adicionar_conta"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spPeriod" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

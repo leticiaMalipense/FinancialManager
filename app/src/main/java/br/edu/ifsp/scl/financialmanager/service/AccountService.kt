@@ -26,4 +26,12 @@ class AccountService(context: Context) {
         return accountDao.findAll()
     }
 
+    fun findByDescription(description: String): Account? {
+        return accountDao.findByDescription(description)
+    }
+
+    fun update(account: Account) {
+        return accountDao.update(account)
+    }
+
 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,9 +39,9 @@ class MainActivity : AppCompatActivity() {
         toolbar.title = "Gerenciador finaceiro"
         setSupportActionBar(toolbar)
 
-        createEventsFloagtingMenu()
-
         createAccountList()
+
+        createEventsFloagtingMenu()
 
         adapter.accounts.forEach({ currentValue += it.value })
         txtCurrentBalanceValue.setText("R$: $currentValue")
@@ -97,6 +98,26 @@ class MainActivity : AppCompatActivity() {
                 txtCurrentBalanceValue.setText("R$: $currentValue")
             }
         }
+        else if (requestCode == Constantes.TRANSACTIONS_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
+
+            val account = data?.getParcelableExtra<Account>(Constantes.ACCOUNT)
+
+            if (account != null) {
+                var index = -1
+                for ((i, a) in  adapter.accounts.withIndex()) {
+                   if (account.id == a.id) {
+                       index = i
+                   }
+                }
+                if (index != -1) {
+                    adapter.accounts[index] = account
+                }
+                adapter.notifyItemChanged(index)
+                currentValue = 0.0
+                adapter.accounts.forEach({ currentValue += it.value })
+                txtCurrentBalanceValue.setText("R$: $currentValue")
+            }
+        }
 
     }
 
@@ -112,13 +133,21 @@ class MainActivity : AppCompatActivity() {
         })
 
         actTransaction.setOnClickListener(View.OnClickListener {
-            val i = Intent(applicationContext, TransactionActivity::class.java)
-            startActivityForResult(i, Constantes.TRANSACTIONS_REQUEST_CODE)
+            if (adapter.accounts.isEmpty()) {
+                Toast.makeText(this,"Adicione uma conta primeiro", Toast.LENGTH_SHORT).show();
+            } else {
+                val i = Intent(applicationContext, TransactionActivity::class.java)
+                startActivityForResult(i, Constantes.TRANSACTIONS_REQUEST_CODE)
+            }
         })
 
         actExtracts.setOnClickListener(View.OnClickListener {
-            val i = Intent(applicationContext, ExtractsActivity::class.java)
-            startActivityForResult(i, Constantes.EXTRACTS_REQUEST_CODE)
+            if (adapter.accounts.isEmpty()) {
+                Toast.makeText(this,"Adicione uma conta primeiro", Toast.LENGTH_SHORT).show();
+            } else {
+                val i = Intent(applicationContext, ExtractsActivity::class.java)
+                startActivityForResult(i, Constantes.EXTRACTS_REQUEST_CODE)
+            }
         })
     }
 

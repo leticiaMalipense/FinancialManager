@@ -7,4 +7,15 @@ enum class TransactionType(val id: Int, val description: String) {
     override fun toString(): String {
         return description
     }
+
+    companion object {
+        fun getEnumFromDescription(description: String): TransactionType{
+            for (value in TransactionType.values()) {
+                if (value.description.equals(description)) {
+                    return value
+                }
+            }
+            return CREDITO
+        }
+    }
 }
