@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.view
 
+import DatePickeFragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -90,12 +91,6 @@ class TransactionActivity : AppCompatActivity() {
     fun validateFieldsRequeried() : Boolean {
         var validated = true;
 
-        /*if(spAccounts.selectedItemId <= 0){
-            var errorText = spAccounts.getSelectedView() as TextView
-            errorText.setError("Campo descrição é de preenchimento obrigatório")
-            validated = false;
-        }*/
-
         if(edtDescTransaction.text == null ||  edtDescTransaction.text.isEmpty()){
             edtDescTransaction.setError("Campo descrição é de preenchimento obrigatório")
             validated = false;
@@ -107,6 +102,11 @@ class TransactionActivity : AppCompatActivity() {
         }
 
         return validated;
+    }
+
+    fun showTimePickerDialog(v: View) {
+        val newFragment = DatePickeFragment(edtTransactionDate)
+        newFragment.show(supportFragmentManager, "datePicker")
     }
 
 
