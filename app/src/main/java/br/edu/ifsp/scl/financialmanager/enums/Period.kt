@@ -16,4 +16,15 @@ enum class Period(val id: Int, val description: String) {
         return description
     }
 
+    companion object {
+        fun getEnumFromDescription(description: String): Period{
+            for (value in Period.values()) {
+                if (value.description.equals(description)) {
+                    return value
+                }
+            }
+            return NUNCA
+        }
+    }
+
 }

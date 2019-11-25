@@ -142,4 +142,46 @@ class AccountDaoImpl(context: Context) : AccountDao {
         return accounts
     }
 
+    override fun findByDescription(description: String): Account? {
+        database =  dbHelper.getReadableDatabase();
+
+        var account: Account? = null
+
+        try {
+            val whereClause = SqlHelper.Constants.KEY_DESCRIPTION + " = ?"
+            val whereArgs = arrayOf(description)
+
+            val cursor = database.query(SqlHelper.Constants.TABLE_ACCOUNT, null, whereClause,whereArgs, null, null, null)
+            if (cursor.moveToNext()) {
+                val id = cursor.getInt(0)
+                val desc = cursor.getString(1)
+                val value = cursor.getDouble(2)
+
+                account = Account(id, desc, value)
+
+            }
+        }
+        catch (e: SQLException) {
+            e.printStackTrace()
+        }finally {
+            database.close()
+        }
+
+        return account
+    }
+
+    override fun update(account: Account) {
+        database =  dbHelper.getReadableDatabase();
+
+        val values = ContentValues()
+        values.put(SqlHelper.Constants.KEY_DESCRIPTION, account.description)
+        values.put(SqlHelper.Constants.KEY_VALUE, account.value)
+
+        database.update(SqlHelper.Constants.TABLE_ACCOUNT,
+            values,
+            SqlHelper.Constants.KEY_ID + "=" + account.id,
+            null)
+        database.close()
+    }
+
 }

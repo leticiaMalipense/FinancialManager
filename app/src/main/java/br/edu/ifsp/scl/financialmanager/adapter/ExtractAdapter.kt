@@ -37,9 +37,16 @@ class ExtractAdapter():RecyclerView.Adapter<ExtractAdapter.ExtractViewHolder>(){
     inner class ExtractViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val txtTypeTransaction: TextView
         internal val txtValue: TextView
-
+        internal val txtTrasactionDescription: TextView
+        internal val txtDate: TextView
+        internal val txtClassification: TextView
+        internal val txtAccountDescription: TextView
 
         init {
+            txtAccountDescription = itemView.findViewById(R.id.txtCellExtractAccountDescription) as TextView
+            txtClassification = itemView.findViewById(R.id.txtCellExtractClassification) as TextView
+            txtDate = itemView.findViewById(R.id.txtCellExtractDate) as TextView
+            txtTrasactionDescription = itemView.findViewById(R.id.txtCellExtractTrasactionDescription) as TextView
             txtTypeTransaction = itemView.findViewById(R.id.txtCellExtractTypeTransaction) as TextView
             txtValue = itemView.findViewById(R.id.txtCellExtractValue) as TextView
         }

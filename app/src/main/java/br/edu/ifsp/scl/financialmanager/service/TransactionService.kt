@@ -22,7 +22,7 @@ class TransactionService(context: Context) {
     fun create(transaction: Transaction): Int {
         val account = accountDao.findById(transaction.accountId)
 
-        if(transaction.typeId == TransactionType.CREDITO.id){
+        if(transaction.typeTransaction == TransactionType.CREDITO.id){
             var currentBalance = account.value + transaction.value
             accountDao.updateBalance(account.id, currentBalance)
         }else{

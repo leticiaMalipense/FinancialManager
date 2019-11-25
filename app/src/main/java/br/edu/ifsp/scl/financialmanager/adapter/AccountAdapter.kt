@@ -64,7 +64,9 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
     }
 
     fun updateAccount(account: Account) {
-
+        this.accounts.remove(account)
+        this.accounts.add(account)
+        notifyDataSetChanged()
     }
 
 

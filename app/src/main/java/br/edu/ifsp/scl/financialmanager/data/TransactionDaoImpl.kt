@@ -23,9 +23,11 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
         values.put(SqlHelper.Constants.KEY_DESCRIPTION, transaction.description)
         values.put(SqlHelper.Constants.KEY_VALUE, transaction.value)
         values.put(SqlHelper.Constants.KEY_ACCOUNT_ID, transaction.accountId)
-        values.put(SqlHelper.Constants.KEY_TYPE_ID, transaction.typeId)
+        values.put(SqlHelper.Constants.KEY_TYPE_ID, transaction.typeTransaction)
         values.put(SqlHelper.Constants.KEY_CLASSIFICATION_ID, transaction.classificationId)
         values.put(SqlHelper.Constants.KEY_PERIOD_ID, transaction.periodId)
+        values.put(SqlHelper.Constants.KEY_DATE_TRANSACTION, transaction.transactionDate)
+        values.put(SqlHelper.Constants.KEY_TYPE_TRANSACTION, transaction.typeTransaction)
 
         try {
             val id = database.insert(SqlHelper.Constants.TABLE_TRANSACTION, null, values)
@@ -84,11 +86,12 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
                 val description = cursor.getString(1)
                 val value = cursor.getDouble(2)
                 val accountId = cursor.getInt(3)
-                val typeId = cursor.getInt(4)
-                val classificationId = cursor.getInt(4)
-                val periodId = cursor.getInt(6)
+                val transactionDate = cursor.getString(4)
+                val typeTransaction = cursor.getInt(5)
+                val classificationId = cursor.getInt(6)
+                val periodId = cursor.getInt(7)
 
-                val transaction = Transaction(id, description, value, accountId, typeId, classificationId, periodId)
+                val transaction = Transaction(id, description, value, accountId, transactionDate, typeTransaction, classificationId, periodId)
                 transactions.add(transaction)
 
             }

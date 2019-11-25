@@ -7,14 +7,21 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.view.get
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.controller.TransactionController
+import br.edu.ifsp.scl.financialmanager.controller.AccountController
 import br.edu.ifsp.scl.financialmanager.enums.Classification
 import br.edu.ifsp.scl.financialmanager.enums.Period
 import br.edu.ifsp.scl.financialmanager.enums.TransactionType
 import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.model.Transaction
 import br.edu.ifsp.scl.financialmanager.service.AccountService
+
+import br.edu.ifsp.scl.financialmanager.service.TransactionService
+import kotlinx.android.synthetic.main.activity_account.*
+import kotlinx.android.synthetic.main.activity_extracts.view.*
 import kotlinx.android.synthetic.main.activity_transaction.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -42,21 +49,40 @@ class TransactionActivity : AppCompatActivity() {
     fun onClickCreateTransaction(v: View) {
 
         if(validateFieldsRequeried()) {
-
-            val description = edtDescTransaction.text.toString()
-            val value = edtValueTransaction.text.toString().toDouble()
             val account = spAccounts.getSelectedItem() as Account
-            val classification = spClassification.getSelectedItem() as Classification
-            val period = spPeriod.getSelectedItem() as Period
-            val type = if (rdCredit.isChecked) TransactionType.CREDITO else TransactionType.DEBITO
 
-            val transaction: Transaction = Transaction( 0, description, value, account.id, type.id, classification.id, period.id)
+            var transactionService = TransactionService(this)
+            var accountService = AccountService(this)
 
-            controller.createTransaction(transaction)
+            if (account != null) {
+                val description = edtDescTransaction.text.toString();
+                val value = edtValueTransaction.text.toString().toDouble();
+                val accountId: Int = account.id
+                val classificationId = Classification.getEnumFromDescription((spClassification.get(0) as AppCompatTextView).text.toString()).id
+                val periodId = Period.getEnumFromDescription((spPeriod.get(0) as AppCompatTextView).text.toString()).id
+                var transactionDate = edtTransactionDate.text.toString()
+                var type = if (rdCredit.isChecked) TransactionType.CREDITO.id else TransactionType.DEBITO.id
 
-            setResult(RESULT_OK, Intent().putExtra(MainActivity.Constantes.ACCOUNT_ID, account.id))
-            Toast.makeText(applicationContext, "Transação incluida com sucesso", Toast.LENGTH_LONG).show()
-            finish()
+                //Criando e inserindo a transação
+                var tran = Transaction(0, description, value, accountId, transactionDate, type, classificationId, periodId)
+                transactionService.create(tran)
+
+                //atualizando o saldo da conta
+                if (type == TransactionType.CREDITO.id) {
+                    account.value += value
+                } else {
+                    account.value -= value
+                }
+                accountService.update(account)
+                setResult(AppCompatActivity.RESULT_OK, Intent().putExtra(MainActivity.Constantes.ACCOUNT, account))
+
+                Toast.makeText(applicationContext, "Transação incluida com sucesso", Toast.LENGTH_LONG).show()
+
+                finish()
+            } else {
+                Toast.makeText(applicationContext, "A conta selecionada não foi encontrada!", Toast.LENGTH_LONG).show()
+            }
+
         }
 
     }
