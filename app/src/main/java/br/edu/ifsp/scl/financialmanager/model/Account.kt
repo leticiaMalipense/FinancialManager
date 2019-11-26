@@ -3,7 +3,7 @@ package br.edu.ifsp.scl.financialmanager.model
 import android.os.Parcel
 import android.os.Parcelable
 
-
+//Modelo que representa a Conta, construida apartir da descrição e do saldo
 data class Account(var id: Int, var description: String, var value: Double) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -35,7 +35,7 @@ data class Account(var id: Int, var description: String, var value: Double) : Pa
     }
 
     override fun toString(): String {
-        return this.description ?: "Sem Descrição"
+        return this.description
     }
 
     override fun equals(other: Any?): Boolean {

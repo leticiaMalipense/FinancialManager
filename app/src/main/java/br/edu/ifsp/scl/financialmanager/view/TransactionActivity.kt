@@ -35,14 +35,17 @@ class TransactionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaction)
 
-
         toolbar.title = "Adicionar transação"
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        //Cria controller de transaction
         controller = TransactionController(this)
+
+        //Adiciona evento de click ao botão salvar
         btnCreateTransaction.setOnClickListener(::onClickCreateTransaction)
 
+        //Preencher todos os campos spinners
         fillSpinners()
 
     }
@@ -88,6 +91,7 @@ class TransactionActivity : AppCompatActivity() {
 
     }
 
+    //Valida campos obrigdatorios
     fun validateFieldsRequeried() : Boolean {
         var validated = true;
 
@@ -104,6 +108,7 @@ class TransactionActivity : AppCompatActivity() {
         return validated;
     }
 
+    //Exibe campo do datePicker
     fun showTimePickerDialog(v: View) {
         val newFragment = DatePickeFragment(edtTransactionDate)
         newFragment.show(supportFragmentManager, "datePicker")
@@ -111,22 +116,22 @@ class TransactionActivity : AppCompatActivity() {
 
 
     private fun fillSpinners() {
+
+        //Criada adapter de classification com base na Enum Classification
         val adapterTypes =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, Classification.values())
         spClassification.adapter = adapterTypes
 
+        //Cria adapter de periods com base na Enum Period
         val adapterPeriods =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, Period.values())
         spPeriod.adapter = adapterPeriods
 
+        //Cria adapter de accounts realizando consultando na base por accounts cadastradas
         var accountService = AccountService(this)
         val adapterAccounts =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, accountService.findAll())
         spAccounts.adapter = adapterAccounts
-    }
-
-    fun onRadioButtonClicked(view: View) {
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

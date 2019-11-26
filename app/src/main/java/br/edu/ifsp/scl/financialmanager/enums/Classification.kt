@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.enums
 
+//Enum contendo dos os tipos de classificações de uma transação
 enum class Classification(val id: Int, val description: String) {
 
     ALIMENTACAO(1,"Alimentação"),
@@ -20,6 +21,7 @@ enum class Classification(val id: Int, val description: String) {
     }
 
     companion object {
+        //Metodo para recuperar objeto apartir do atributo description
         fun getEnumFromDescription(description: String): Classification{
             for (value in Classification.values()) {
                 if (value.description.equals(description)) {

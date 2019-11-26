@@ -3,6 +3,7 @@ package br.edu.ifsp.scl.financialmanager.model
 import android.os.Parcel
 import android.os.Parcelable
 
+//Modelo que representa a Transação
 data class Transaction(var id: Int, var description: String, var value: Double, var accountId: Int,
                        var transactionDate: String, var typeTransaction: Int, var classificationId: Int, var periodId: Int) : Parcelable {
     constructor(parcel: Parcel) : this(

@@ -12,11 +12,14 @@ class AccountDaoImpl(context: Context) : AccountDao {
     lateinit var database: SQLiteDatabase
 
     init{
+        //Instancia o sqlHelper
         dbHelper = SqlHelper(context)
     }
 
+    //Metodo responsavél por realizar a criação da account
     override fun create(account: Account): Int {
-        database =  dbHelper.getReadableDatabase();
+        //Cria conexão com o banco de dados
+        database =  dbHelper.getReadableDatabase()
 
         val values = ContentValues()
         values.put(SqlHelper.Constants.KEY_DESCRIPTION, account.description)
@@ -30,6 +33,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
             e.printStackTrace()
         }
         finally {
+            //fecha conexão
             database.close()
         }
 
@@ -37,6 +41,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
 
     }
 
+    //Metodo para realização a exclusão da account
     override fun delete(id: Int) {
         database =  dbHelper.getReadableDatabase();
 
@@ -52,11 +57,12 @@ class AccountDaoImpl(context: Context) : AccountDao {
 
     }
 
-
+    //Metodo que realiza o somatorio SUM do saldo de todas as contas, devolvendo o saldo total atual
     override fun getCurrentBalance(): Double {
         database =  dbHelper.getReadableDatabase();
 
         try {
+            //SUM operação de soma da query
             val cursor = database.rawQuery("select sum(value) from "+ SqlHelper.Constants.TABLE_ACCOUNT, null);
             while (cursor.moveToNext()) {
                 return cursor.getDouble(0)
@@ -71,27 +77,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
         return 0.0
     }
 
-
-    override fun updateBalance(accountId: Int, value: Double) {
-        database =  dbHelper.getReadableDatabase();
-
-        try {
-            val values = ContentValues()
-            values.put(SqlHelper.Constants.KEY_VALUE, value)
-
-            database.update(
-                SqlHelper.Constants.TABLE_ACCOUNT, values, SqlHelper.Constants.KEY_ID+ "=" + accountId, null
-            )
-        }
-        catch (e: SQLException) {
-            e.printStackTrace()
-        }
-        finally {
-            database.close()
-        }
-
-    }
-
+    //Metodo que retorna a account apartir do ID da mesma
     override fun findById(accountId: Int): Account {
         database =  dbHelper.getReadableDatabase();
 
@@ -116,6 +102,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
         return account
     }
 
+    //Metodo que recupera todas as contas cadastradas
     override fun findAll(): List<Account> {
         database =  dbHelper.getReadableDatabase();
 
@@ -123,6 +110,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
 
         try {
             val cursor = database.query(SqlHelper.Constants.TABLE_ACCOUNT, null, null,null, null, null, null)
+            //Montar lista de account com base do resultado da query realizada
             while (cursor.moveToNext()) {
                 val id = cursor.getInt(0)
                 val description = cursor.getString(1)
@@ -142,34 +130,7 @@ class AccountDaoImpl(context: Context) : AccountDao {
         return accounts
     }
 
-    override fun findByDescription(description: String): Account? {
-        database =  dbHelper.getReadableDatabase();
-
-        var account: Account? = null
-
-        try {
-            val whereClause = SqlHelper.Constants.KEY_DESCRIPTION + " = ?"
-            val whereArgs = arrayOf(description)
-
-            val cursor = database.query(SqlHelper.Constants.TABLE_ACCOUNT, null, whereClause,whereArgs, null, null, null)
-            if (cursor.moveToNext()) {
-                val id = cursor.getInt(0)
-                val desc = cursor.getString(1)
-                val value = cursor.getDouble(2)
-
-                account = Account(id, desc, value)
-
-            }
-        }
-        catch (e: SQLException) {
-            e.printStackTrace()
-        }finally {
-            database.close()
-        }
-
-        return account
-    }
-
+    //Metodo para realizar o update da account
     override fun update(account: Account) {
         database =  dbHelper.getReadableDatabase();
 
