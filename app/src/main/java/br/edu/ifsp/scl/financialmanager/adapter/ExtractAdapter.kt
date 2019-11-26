@@ -12,6 +12,8 @@ import br.edu.ifsp.scl.financialmanager.enums.Classification
 import br.edu.ifsp.scl.financialmanager.enums.TransactionType
 import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.model.Transaction
+import br.edu.ifsp.scl.financialmanager.service.AccountService
+import br.edu.ifsp.scl.financialmanager.service.TransactionService
 
 class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<ExtractAdapter.ExtractViewHolder>(){
     var transactions: MutableList<Transaction>
@@ -32,12 +34,15 @@ class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<Extra
         val transaction = this.transactions[position]
         val transactionType = TransactionType.getEnumFromId(transaction.typeTransaction)
         val classif = Classification.getEnumFromId(transaction.classificationId)
+        val account = AccountService(context)
+        val accountName = account.findById(transaction.accountId).description
 
         holder.txtTrasactionDescription.setText(transaction.description)
-        holder.txtAccountDescription.setText(transaction.accountId.toString())
+        holder.txtAccountDescription.setText(accountName)
         holder.txtClassification.setText(classif.description)
         holder.txtTypeTransaction.setText(transactionType.description)
-        holder.txtValue.setText("- R$ " + transaction.value.toString())
+        holder.txtValue.setText("R$ " + transaction.value.toString())
+        holder.txtDate.setText(transaction.transactionDate)
 
         holder.txtTypeTransaction.setBackgroundResource(if (transactionType == TransactionType.CREDITO) R.drawable.rounded_corner_green else R.drawable.rounded_corner_red)
         holder.txtValue.setTextColor(ContextCompat.getColor(context, if (transactionType == TransactionType.CREDITO) R.color.greenValue else R.color.redValue))

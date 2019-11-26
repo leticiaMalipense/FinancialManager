@@ -17,9 +17,9 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "financial.manager
         const val KEY_DESCRIPTION = "DESCRIPTION"
         const val KEY_VALUE = "VALUE"
         const val KEY_ACCOUNT_ID = "ACCOUNT_ID"
-        const val KEY_CLASSIFICATION_ID = "CLASSIFICATION_ID"
-        const val KEY_TYPE_TRANSACTION = "TYPE_TRANSACTION"
         const val KEY_DATE_TRANSACTION = "DATE_TRANSACTION"
+        const val KEY_TYPE_TRANSACTION = "TYPE_TRANSACTION"
+        const val KEY_CLASSIFICATION_ID = "CLASSIFICATION_ID"
         const val KEY_PERIOD_ID = "PERIOD_ID"
     }
 
@@ -30,8 +30,8 @@ class SqlHelper(context: Context) : SQLiteOpenHelper(context, "financial.manager
     //Script para a criação da tabela de transaction
     val CREATE_TABLE_TRASACTION = (" CREATE TABLE IF NOT EXISTS "+ Constants.TABLE_TRANSACTION +" ( "+ Constants.KEY_ID +" INTEGER PRIMARY KEY AUTOINCREMENT, "
             + Constants.KEY_DESCRIPTION +" TEXT, "+ Constants.KEY_VALUE+" NUMERIC, "+ Constants.KEY_ACCOUNT_ID +" INTEGER, "
-            +  Constants.KEY_CLASSIFICATION_ID +" INTEGER, "+ Constants.KEY_TYPE_TRANSACTION +" INTEGER, "
-            + Constants.KEY_DATE_TRANSACTION + " TEXT, " + Constants.KEY_PERIOD_ID + " INTEGER )")
+            +  Constants.KEY_DATE_TRANSACTION +" INTEGER, "+ Constants.KEY_TYPE_TRANSACTION +" INTEGER, "
+            + Constants.KEY_CLASSIFICATION_ID + " TEXT, " + Constants.KEY_PERIOD_ID + " INTEGER )")
 
 
     //Metodo onCreate sobrescrito para adicionar o codigo de criação das tabelas
