@@ -28,6 +28,14 @@ enum class Classification(val id: Int, val description: String) {
             }
             return OUTRO
         }
+        fun getEnumFromId(id: Int): Classification{
+            for (value in Classification.values()) {
+                if (value.id.compareTo(id) == 0) {
+                    return value
+                }
+            }
+            return OUTRO
+        }
     }
 
 }

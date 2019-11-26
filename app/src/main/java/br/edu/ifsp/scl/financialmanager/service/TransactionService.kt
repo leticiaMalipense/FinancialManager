@@ -5,6 +5,7 @@ import br.edu.ifsp.scl.financialmanager.data.AccountDao
 import br.edu.ifsp.scl.financialmanager.data.AccountDaoImpl
 import br.edu.ifsp.scl.financialmanager.data.TransactionDao
 import br.edu.ifsp.scl.financialmanager.data.TransactionDaoImpl
+import br.edu.ifsp.scl.financialmanager.enums.Classification
 import br.edu.ifsp.scl.financialmanager.enums.TransactionType
 import br.edu.ifsp.scl.financialmanager.model.Transaction
 
@@ -43,6 +44,14 @@ class TransactionService(context: Context) {
 
     fun findAll(): List<Transaction> {
         return transactionDao.findAll()
+    }
+
+    fun findByTransactionType(transactionTypeId: Int) : List<Transaction> {
+        return transactionDao.findByArgs(transactionTypeId, null)
+    }
+
+    fun findByTransactionClassification(classificationId: Int) : List<Transaction> {
+        return transactionDao.findByArgs(null, classificationId)
     }
 
 }

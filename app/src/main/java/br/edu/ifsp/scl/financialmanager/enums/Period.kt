@@ -25,6 +25,14 @@ enum class Period(val id: Int, val description: String) {
             }
             return NUNCA
         }
+        fun getEnumFromId(id: Int): Period{
+            for (value in Period.values()) {
+                if (value.id.compareTo(id) == 0) {
+                    return value
+                }
+            }
+            return NUNCA
+        }
     }
 
 }

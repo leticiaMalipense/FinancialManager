@@ -24,9 +24,9 @@ data class Transaction(var id: Int, var description: String, var value: Double, 
             parcel.writeDouble(value)
             parcel.writeInt(accountId)
             parcel.writeString(transactionDate)
+            parcel.writeInt(typeTransaction)
             parcel.writeInt(classificationId)
             parcel.writeInt(periodId)
-            parcel.writeInt(typeTransaction)
         }
     }
 

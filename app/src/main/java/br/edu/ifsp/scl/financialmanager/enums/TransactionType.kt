@@ -17,5 +17,14 @@ enum class TransactionType(val id: Int, val description: String) {
             }
             return CREDITO
         }
+
+        fun getEnumFromId(id: Int): TransactionType{
+            for (value in TransactionType.values()) {
+                if (value.id.compareTo(id) == 0) {
+                    return value
+                }
+            }
+            return CREDITO
+        }
     }
 }

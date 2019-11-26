@@ -8,10 +8,19 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.financialmanager.R
+import br.edu.ifsp.scl.financialmanager.enums.Classification
+import br.edu.ifsp.scl.financialmanager.enums.TransactionType
+import br.edu.ifsp.scl.financialmanager.model.Account
+import br.edu.ifsp.scl.financialmanager.model.Transaction
 
-class ExtractAdapter():RecyclerView.Adapter<ExtractAdapter.ExtractViewHolder>(){
-
+class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<ExtractAdapter.ExtractViewHolder>(){
+    var transactions: MutableList<Transaction>
     lateinit var context: Context
+
+    init {
+        this.transactions = mutableListOf<Transaction>()
+        this.transactions.addAll(transactions)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExtractViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cell_extract, parent, false)
@@ -20,18 +29,22 @@ class ExtractAdapter():RecyclerView.Adapter<ExtractAdapter.ExtractViewHolder>(){
     }
 
     override fun onBindViewHolder(holder: ExtractViewHolder, position: Int) {
-//        val contato = contactListFiltered[position]
-        if(position == 1){
-            holder.txtTypeTransaction.setText("Crédito")
-            holder.txtTypeTransaction.setBackgroundResource(R.drawable.rounded_corner_green)
-            holder.txtValue.setTextColor(ContextCompat.getColor(context, R.color.greenValue))
-        }
-//        holder.imgFavoritar.setImageResource(if (contato.getFavorito()) android.R.drawable.btn_star_big_on else android.R.drawable.btn_star_big_off)
+        val transaction = this.transactions[position]
+        val transactionType = TransactionType.getEnumFromId(transaction.typeTransaction)
+        val classif = Classification.getEnumFromId(transaction.classificationId)
+
+        holder.txtTrasactionDescription.setText(transaction.description)
+        holder.txtAccountDescription.setText(transaction.accountId.toString())
+        holder.txtClassification.setText(classif.description)
+        holder.txtTypeTransaction.setText(transactionType.description)
+        holder.txtValue.setText("- R$ " + transaction.value.toString())
+
+        holder.txtTypeTransaction.setBackgroundResource(if (transactionType == TransactionType.CREDITO) R.drawable.rounded_corner_green else R.drawable.rounded_corner_red)
+        holder.txtValue.setTextColor(ContextCompat.getColor(context, if (transactionType == TransactionType.CREDITO) R.color.greenValue else R.color.redValue))
     }
 
     override fun getItemCount(): Int {
-//        return contactListFiltered.size
-        return 2
+        return transactions.size
     }
 
     inner class ExtractViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

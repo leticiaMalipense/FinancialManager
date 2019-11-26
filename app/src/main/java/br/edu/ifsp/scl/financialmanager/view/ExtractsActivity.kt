@@ -7,12 +7,17 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.CompoundButton
+import android.widget.Toast
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.view.get
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.service.AccountService
 import br.edu.ifsp.scl.financialmanager.enums.Classification
 import br.edu.ifsp.scl.financialmanager.enums.TransactionType
+import br.edu.ifsp.scl.financialmanager.model.Transaction
 import br.edu.ifsp.scl.financialmanager.service.TransactionService
 import kotlinx.android.synthetic.main.activity_extracts.*
+import kotlinx.android.synthetic.main.activity_transaction.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeListener {
@@ -41,14 +46,48 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         spExtractType.adapter = adapterType
 
         btnGenerateExtract.setOnClickListener(::generateExtract)
-
-        var transactionService = TransactionService(this)
-        print(transactionService.findAll())
     }
 
     fun generateExtract(v: View) {
-        val i = Intent(applicationContext, ExtractResultsActivity::class.java)
-        startActivityForResult(i, MainActivity.Constantes.EXTRACT_RESULT_REQUEST_CODE)
+        val transactionService = TransactionService(this)
+
+        var transactions = ArrayList<Transaction>()
+
+        if (rdExtractTransection.isChecked) {
+            val transactionTypeId = TransactionType.getEnumFromDescription((spExtractType.get(0) as AppCompatTextView).text.toString()).id
+            transactions = transactionService.findByTransactionType(transactionTypeId) as ArrayList<Transaction>
+        } else if (rdExtractType.isChecked) {
+            val classificationId = Classification.getEnumFromDescription((spExtractClassification.get(0) as AppCompatTextView).text.toString()).id
+            transactions = transactionService.findByTransactionClassification(classificationId) as ArrayList<Transaction>
+        } else if (rdExtractAccount.isChecked && validateFieldsRequeried()) {
+            //conta - santander - nubank
+
+        }
+        if (transactions.isEmpty()) {
+            Toast.makeText(this, "Nenhuma transação encontrada", Toast.LENGTH_SHORT).show()
+        } else {
+            val i = Intent(applicationContext, ExtractResultsActivity::class.java)
+            i.putExtra(MainActivity.Constantes.TRASACTION_LIST, transactions)
+            startActivityForResult(i, MainActivity.Constantes.EXTRACT_RESULT_REQUEST_CODE)
+        }
+
+
+    }
+
+    fun validateFieldsRequeried() : Boolean {
+        var validated = true;
+
+//        if(edtDescTransaction.text == null ||  edtDescTransaction.text.isEmpty()){
+//            edtDescTransaction.setError("Campo descrição é de preenchimento obrigatório")
+//            validated = false;
+//        }
+//
+//        if(edtValueTransaction.text == null ||  edtValueTransaction.text.isEmpty()){
+//            edtValueTransaction.setError("Campo saldo inicial é de preenchimento obrigatório")
+//            validated =  false;
+//        }
+
+        return validated;
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {

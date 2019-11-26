@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     object Constantes{
         val ACCOUNT = "ACCOUNT"
+        val TRASACTION_LIST = "TRANSACTION_LIST"
         val ACCOUNT_REQUEST_CODE = 1
         val ACCOUNT_DETAILS_REQUEST_CODE = 2
         val TRANSACTIONS_REQUEST_CODE = 3
