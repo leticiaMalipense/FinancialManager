@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.model.Account
 
+
+//Adapter para a recicleview de accounts
 class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdapter.AccountViewHolder>() {
     var accounts: MutableList<Account>
     lateinit var context: Context
@@ -19,6 +21,7 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
         this.accounts.addAll(accounts)
     }
 
+    //Criando viewholder e inflando o layout da celula
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AccountViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.account_cell, parent, false)
 
@@ -35,7 +38,7 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
         holder.value.setText(accounts.get(position).value.toString())
     }
 
-
+    //Classe para criacao do view holder da reciclerview
     inner class AccountViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
         internal val description: TextView
@@ -52,23 +55,6 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
             clickListener.onItemClick(adapterPosition)
         }
     }
-
-    fun addAccount(account: Account) {
-        this.accounts.add(account)
-        notifyDataSetChanged()
-    }
-
-    fun removeAccount(account: Account) {
-        this.accounts.remove(account)
-        notifyDataSetChanged()
-    }
-
-    fun updateAccount(account: Account) {
-        this.accounts.remove(account)
-        this.accounts.add(account)
-        notifyDataSetChanged()
-    }
-
 
     interface ItemClickListener {
         fun onItemClick(position: Int)

@@ -9,19 +9,22 @@ class AccountController(val view: AccountActivity) {
     val model: AccountService
 
     init{
+        //Instanciando o service
         model = AccountService(view.applicationContext)
     }
 
+    //Metodo para criação da account
     fun createAccount(account: Account) {
         val id = model.create(account)
         account.id = id
-        view.refreshView(account)
     }
 
+    //Metodo para deletar a account
     fun deleteAccount(accountId: Int) {
         model.delete(accountId)
     }
 
+    //Metodo que retorna a lista de accounts cadastradas
     fun findAllAccount(): List<Account> {
         return model.findAll()
     }

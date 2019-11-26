@@ -17,9 +17,11 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
         dbHelper = SqlHelper(context)
     }
 
+    //Metodo que realiza a criação da transação
     override fun create(transaction: Transaction): Int {
         database =  dbHelper.getReadableDatabase();
 
+        //Atribuindo valores do objeto de account
         val values = ContentValues()
         values.put(SqlHelper.Constants.KEY_DESCRIPTION, transaction.description)
         values.put(SqlHelper.Constants.KEY_VALUE, transaction.value)
@@ -30,6 +32,7 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
         values.put(SqlHelper.Constants.KEY_PERIOD_ID, transaction.periodId)
 
         try {
+            //Realiza operação de inclusão
             val id = database.insert(SqlHelper.Constants.TABLE_TRANSACTION, null, values)
             return id.toInt()
         }
@@ -37,6 +40,7 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
             e.printStackTrace()
         }
         finally {
+            //Fecha conexão com o banco
             database.close()
         }
 
@@ -44,10 +48,12 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
 
     }
 
+    //Metodo que realiza a exclusão de uma transação com base no ID da mesma
     override fun delete(id: Int) {
         database =  dbHelper.getReadableDatabase();
 
         try {
+            //Realiza operação de exclusão
             database.delete(SqlHelper.Constants.TABLE_TRANSACTION,SqlHelper.Constants.KEY_ID + "=" + id, null )
         }
         catch (e: SQLException) {
@@ -59,6 +65,7 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
 
     }
 
+    //Metodo que realiza a exclusão de todas as transações de uma conta
     override fun deleteAllByAccount(accountId: Int) {
         database =  dbHelper.getReadableDatabase();
 
@@ -74,12 +81,14 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
 
     }
 
+    //Metodo que recupera todas as transações cadastradas
     override fun findAll(): List<Transaction> {
         database =  dbHelper.getReadableDatabase();
 
         var transactions: ArrayList<Transaction> = ArrayList()
 
         try {
+            //Realiza a operação de consulta e monta a lista de objetos apartir do cursos contendo todos os dados retornados
             val cursor = database.query(SqlHelper.Constants.TABLE_TRANSACTION, null, null,null, null, null, null)
             while (cursor.moveToNext()) {
                 val id = cursor.getInt(0)
@@ -99,6 +108,7 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
         catch (e: SQLException) {
             e.printStackTrace()
         }finally {
+            //Fecha a conexão com o banco
             database.close()
         }
 

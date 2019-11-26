@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.enums
 
+//Enum contendo todos os periodos de transações definidos para o app
 enum class Period(val id: Int, val description: String) {
 
     NUNCA(1,"Nunca"),
@@ -17,6 +18,7 @@ enum class Period(val id: Int, val description: String) {
     }
 
     companion object {
+        //Metodo para recuperar objeto apartir do atributo description
         fun getEnumFromDescription(description: String): Period{
             for (value in Period.values()) {
                 if (value.description.equals(description)) {

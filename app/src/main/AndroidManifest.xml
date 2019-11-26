@@ -14,7 +14,7 @@
                 android:label="@string/title_activity_extract_results"
                 android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".view.ExtractsActivity" />
-        <activity android:name=".view.AccountDetails" />
+        <activity android:name=".view.AccountDetailsActivity" />
         <activity
                 android:name=".TransactionActivity"
                 android:label="@string/title_activity_transaction"

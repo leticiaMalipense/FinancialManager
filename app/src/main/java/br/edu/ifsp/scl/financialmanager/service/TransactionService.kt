@@ -14,6 +14,7 @@ class TransactionService(context: Context) {
     var transactionDao: TransactionDao
     var accountDao: AccountDao
 
+    //Instanciando services
     init{
         transactionDao = TransactionDaoImpl(context)
         accountDao = AccountDaoImpl(context)
@@ -21,15 +22,6 @@ class TransactionService(context: Context) {
     }
 
     fun create(transaction: Transaction): Int {
-        val account = accountDao.findById(transaction.accountId)
-
-        if(transaction.typeTransaction == TransactionType.CREDITO.id){
-            var currentBalance = account.value + transaction.value
-            accountDao.updateBalance(account.id, currentBalance)
-        }else{
-            var currentBalance = account.value - transaction.value
-            accountDao.updateBalance(account.id, currentBalance)
-        }
         return transactionDao.create(transaction)
     }
 

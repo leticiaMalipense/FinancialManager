@@ -12,17 +12,19 @@ import br.edu.ifsp.scl.financialmanager.model.Account
 import kotlinx.android.synthetic.main.activity_account_details.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class AccountDetails : AppCompatActivity() {
+class AccountDetailsActivity : AppCompatActivity() {
     internal lateinit var account: Account
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_account_details)
 
+        //Atribuindo titulo a toolbar
         toolbar.title = "Gerenciando Conta"
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+        //Recuperar valores do map extra que foram enviado pela activity anterior
         if (intent.hasExtra(MainActivity.Constantes.ACCOUNT)) {
             this.account  = intent.getParcelableExtra<Account>(MainActivity.Constantes.ACCOUNT)
 
@@ -44,12 +46,20 @@ class AccountDetails : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
+
+        //Opção de delete do menu
         if (id == R.id.deleteAccount) {
+
+            //Instancia accountService
             val service = AccountService(this)
             service.delete(account.id)
 
+            //Cria toast com a mensagem de exclusão com sucesso
             Toast.makeText(applicationContext, "Conta excluída com sucesso", Toast.LENGTH_LONG).show()
+
+            //Seta account excluida para a proxima tela para que a lista de accounts possa ser atualizada
             setResult(RESULT_OK, Intent().putExtra(MainActivity.Constantes.ACCOUNT, account))
+
             finish()
 
         }

@@ -13,10 +13,12 @@ class TransactionController(val view: TransactionActivity) {
         model = TransactionService(view.applicationContext)
     }
 
+    //Metodo para criar a transação
     fun createTransaction(transaction: Transaction) {
-        val id = model.create(transaction)
+        model.create(transaction)
     }
 
+    //Metodo que retorna todas as transações cadastradas
     fun findAllTransaction(): List<Transaction> {
         return model.findAll()
     }

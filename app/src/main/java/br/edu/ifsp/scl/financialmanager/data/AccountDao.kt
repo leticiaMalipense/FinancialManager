@@ -9,8 +9,6 @@ interface AccountDao {
     fun getCurrentBalance(): Double
     fun delete(id: Int)
     fun findAll() : List<Account>
-    fun updateBalance(accountId: Int, value: Double)
-    fun findByDescription(description: String): Account?
     fun update(account: Account)
 
 }
