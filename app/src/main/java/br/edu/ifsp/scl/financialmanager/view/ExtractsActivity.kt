@@ -1,5 +1,6 @@
 package br.edu.ifsp.scl.financialmanager.view
 
+import DatePickeFragment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -92,6 +93,19 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
                 rdExtractTransection.setChecked(false);
             }
         }
+    }
+
+
+    //Exibe campo do datePicker
+    fun showPickerDialogBegin(v: View) {
+        val newFragment = DatePickeFragment(edtBeginDate)
+        newFragment.show(supportFragmentManager, "datePicker")
+    }
+
+    //Exibe campo do datePicker
+    fun showPickerDialogEnd(v: View) {
+        val newFragment = DatePickeFragment(edtEndDate)
+        newFragment.show(supportFragmentManager, "datePicker")
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

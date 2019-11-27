@@ -1,16 +1,14 @@
 package br.edu.ifsp.scl.financialmanager.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.recyclerview.widget.LinearLayoutManager
-import br.edu.ifsp.scl.financialmanager.adapter.ExtractAdapter
+import android.widget.CompoundButton
+import androidx.appcompat.app.AppCompatActivity
 import br.edu.ifsp.scl.financialmanager.R
-import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.model.Transaction
-import kotlinx.android.synthetic.main.activity_account_details.*
 import kotlinx.android.synthetic.main.activity_extract_results.*
 import kotlinx.android.synthetic.main.toolbar.*
+
 
 class ExtractResultsActivity : AppCompatActivity() {
 
@@ -24,15 +22,23 @@ class ExtractResultsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        val layoutManager = LinearLayoutManager(this)
-        rvExtract.setLayoutManager(layoutManager)
-
         if (intent.hasExtra(MainActivity.Constantes.TRASACTION_LIST)) {
             this.transactions  = intent.getParcelableArrayListExtra(MainActivity.Constantes.TRASACTION_LIST)
         }
 
-        val adapter = ExtractAdapter(this.transactions)
-        rvExtract.setAdapter(adapter)
+        supportFragmentManager.beginTransaction().replace(R.id.resultFragment,
+                               ExtractResultsListFragment(this.transactions)).commit()
+
+        //Evento do switch para ativar modo grafico
+        swit.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+           if(isChecked){
+               supportFragmentManager.beginTransaction().replace(R.id.resultFragment,
+                   ExtractResultsGraphicFragment(this.transactions)).commit()
+           }else{
+               supportFragmentManager.beginTransaction().replace(R.id.resultFragment,
+                                      ExtractResultsListFragment(this.transactions)).commit()
+           }
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

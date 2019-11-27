@@ -12,17 +12,13 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.get
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.controller.TransactionController
-import br.edu.ifsp.scl.financialmanager.controller.AccountController
 import br.edu.ifsp.scl.financialmanager.enums.Classification
 import br.edu.ifsp.scl.financialmanager.enums.Period
 import br.edu.ifsp.scl.financialmanager.enums.TransactionType
 import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.model.Transaction
 import br.edu.ifsp.scl.financialmanager.service.AccountService
-
 import br.edu.ifsp.scl.financialmanager.service.TransactionService
-import kotlinx.android.synthetic.main.activity_account.*
-import kotlinx.android.synthetic.main.activity_extracts.view.*
 import kotlinx.android.synthetic.main.activity_transaction.*
 import kotlinx.android.synthetic.main.toolbar.*
 
