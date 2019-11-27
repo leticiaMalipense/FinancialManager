@@ -46,4 +46,7 @@ class TransactionService(context: Context) {
         return transactionDao.findByArgs(null, classificationId)
     }
 
+    fun findByDate(accountId: Int, beginDate: String?, endDate: String?): List<Transaction> {
+        return transactionDao.findByDate(accountId, beginDate, endDate)
+    }
 }

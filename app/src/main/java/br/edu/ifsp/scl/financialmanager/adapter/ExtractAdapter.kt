@@ -14,6 +14,8 @@ import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.model.Transaction
 import br.edu.ifsp.scl.financialmanager.service.AccountService
 import br.edu.ifsp.scl.financialmanager.service.TransactionService
+import br.edu.ifsp.scl.financialmanager.utils.DateUtils
+import java.text.SimpleDateFormat
 
 class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<ExtractAdapter.ExtractViewHolder>(){
     var transactions: MutableList<Transaction>
@@ -42,7 +44,8 @@ class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<Extra
         holder.txtClassification.setText(classif.description)
         holder.txtTypeTransaction.setText(transactionType.description)
         holder.txtValue.setText("R$ " + transaction.value.toString())
-        holder.txtDate.setText(transaction.transactionDate)
+        val datePtbrString = DateUtils.getDatePtbrFromEn(transaction.transactionDate)
+        holder.txtDate.setText(datePtbrString)
 
         holder.txtTypeTransaction.setBackgroundResource(if (transactionType == TransactionType.CREDITO) R.drawable.rounded_corner_green else R.drawable.rounded_corner_red)
         holder.txtValue.setTextColor(ContextCompat.getColor(context, if (transactionType == TransactionType.CREDITO) R.color.greenValue else R.color.redValue))

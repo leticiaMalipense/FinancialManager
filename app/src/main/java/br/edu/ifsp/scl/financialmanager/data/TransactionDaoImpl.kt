@@ -7,7 +7,9 @@ import br.edu.ifsp.scl.financialmanager.enums.Classification
 import br.edu.ifsp.scl.financialmanager.enums.TransactionType
 import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.model.Transaction
+import br.edu.ifsp.scl.financialmanager.utils.DateUtils
 import java.sql.SQLException
+import java.text.SimpleDateFormat
 
 class TransactionDaoImpl(context: Context) : TransactionDao {
     var dbHelper: SqlHelper
@@ -21,12 +23,14 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
     override fun create(transaction: Transaction): Int {
         database =  dbHelper.getReadableDatabase();
 
+        val dateEnString = DateUtils.getDateEnFromPtbr(transaction.transactionDate)
+
         //Atribuindo valores do objeto de account
         val values = ContentValues()
         values.put(SqlHelper.Constants.KEY_DESCRIPTION, transaction.description)
         values.put(SqlHelper.Constants.KEY_VALUE, transaction.value)
         values.put(SqlHelper.Constants.KEY_ACCOUNT_ID, transaction.accountId)
-        values.put(SqlHelper.Constants.KEY_DATE_TRANSACTION, transaction.transactionDate)
+        values.put(SqlHelper.Constants.KEY_DATE_TRANSACTION, dateEnString)
         values.put(SqlHelper.Constants.KEY_TYPE_TRANSACTION, transaction.typeTransaction)
         values.put(SqlHelper.Constants.KEY_CLASSIFICATION_ID, transaction.classificationId)
         values.put(SqlHelper.Constants.KEY_PERIOD_ID, transaction.periodId)
@@ -130,6 +134,43 @@ class TransactionDaoImpl(context: Context) : TransactionDao {
 
             val cursor = database.query(SqlHelper.Constants.TABLE_TRANSACTION, null,
                 where,null, null, null, null)
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(0)
+                val description = cursor.getString(1)
+                val value = cursor.getDouble(2)
+                val accountId = cursor.getInt(3)
+                val transactionDate = cursor.getString(4)
+                val typeTransaction = cursor.getInt(5)
+                val classificationId = cursor.getInt(6)
+                val periodId = cursor.getInt(7)
+
+                val transaction = Transaction(id, description, value, accountId, transactionDate, typeTransaction, classificationId, periodId)
+                transactions.add(transaction)
+
+            }
+        }
+        catch (e: SQLException) {
+            e.printStackTrace()
+        }finally {
+            database.close()
+        }
+
+        return transactions
+    }
+
+    override fun findByDate(accountId: Int, beginDate: String?, endDate: String?): List<Transaction> {
+        database =  dbHelper.getReadableDatabase()
+        var transactions: ArrayList<Transaction> = ArrayList()
+
+        try {
+            var sql = "SELECT * FROM " + SqlHelper.Constants.TABLE_TRANSACTION + " WHERE " + SqlHelper.Constants.KEY_ACCOUNT_ID + " = " + accountId
+            if (beginDate != null) {
+                sql += " AND " + SqlHelper.Constants.KEY_DATE_TRANSACTION + " >= '" + DateUtils.getDateEnFromPtbr(beginDate) + "'"
+            }
+            if (endDate != null) {
+                sql += " AND " + SqlHelper.Constants.KEY_DATE_TRANSACTION + " <= '" + DateUtils.getDateEnFromPtbr(endDate) + "'"
+            }
+            val cursor = database.rawQuery(sql, null)
             while (cursor.moveToNext()) {
                 val id = cursor.getInt(0)
                 val description = cursor.getString(1)

@@ -43,4 +43,8 @@ class AccountService(context: Context) {
         return accountDao.update(account)
     }
 
+    fun findByName(name: String): Account {
+        return accountDao.findByName(name)
+    }
+
 }

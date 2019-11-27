@@ -102,6 +102,30 @@ class AccountDaoImpl(context: Context) : AccountDao {
         return account
     }
 
+    override fun findByName(name: String): Account {
+        database =  dbHelper.getReadableDatabase();
+
+        lateinit var account: Account
+
+        try {
+            val cursor = database.query(SqlHelper.Constants.TABLE_ACCOUNT, null, SqlHelper.Constants.KEY_DESCRIPTION+ "='" + name + "'",null, null, null, null)
+            while (cursor.moveToNext()) {
+                val id = cursor.getInt(0)
+                val description = cursor.getString(1)
+                val value = cursor.getDouble(2)
+
+                account = Account(id, description, value)
+            }
+        }
+        catch (e: SQLException) {
+            e.printStackTrace()
+        }finally {
+            database.close()
+        }
+
+        return account
+    }
+
     //Metodo que recupera todas as contas cadastradas
     override fun findAll(): List<Account> {
         database =  dbHelper.getReadableDatabase();

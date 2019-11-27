@@ -86,20 +86,20 @@
             app:layout_constraintTop_toBottomOf="@+id/rdExtractType" />
 
     <EditText
-            android:id="@+id/editText"
+            android:id="@+id/edtBeginDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:ems="10"
             android:hint="dd/mm/aaaa"
             android:inputType="date"
-            app:layout_constraintEnd_toStartOf="@+id/editText2"
+            app:layout_constraintEnd_toStartOf="@+id/edtEndDate"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/edtEndDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -107,11 +107,11 @@
             android:ems="10"
             android:hint="dd/mm/aaaa"
             android:inputType="date"
-            app:layout_constraintBottom_toBottomOf="@+id/editText"
+            app:layout_constraintBottom_toBottomOf="@+id/edtBeginDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/editText"
-            app:layout_constraintTop_toTopOf="@+id/editText" />
+            app:layout_constraintStart_toEndOf="@+id/edtBeginDate"
+            app:layout_constraintTop_toTopOf="@+id/edtBeginDate" />
 
     <TextView
             android:id="@+id/textView"
@@ -159,7 +159,7 @@
             android:background="?android:attr/listDivider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/edtBeginDate" />
 
     <View
             android:id="@+id/divider2"

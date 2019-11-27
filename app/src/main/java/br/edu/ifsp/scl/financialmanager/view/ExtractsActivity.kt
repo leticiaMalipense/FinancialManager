@@ -50,6 +50,7 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
 
     fun generateExtract(v: View) {
         val transactionService = TransactionService(this)
+        val accountService = AccountService(this)
 
         var transactions = ArrayList<Transaction>()
 
@@ -59,9 +60,11 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         } else if (rdExtractType.isChecked) {
             val classificationId = Classification.getEnumFromDescription((spExtractClassification.get(0) as AppCompatTextView).text.toString()).id
             transactions = transactionService.findByTransactionClassification(classificationId) as ArrayList<Transaction>
-        } else if (rdExtractAccount.isChecked && validateFieldsRequeried()) {
-            //conta - santander - nubank
-
+        } else if (rdExtractAccount.isChecked) {
+            val accountId = accountService.findByName((spExtractAccounts.get(0) as AppCompatTextView).text.toString()).id
+            val beginDate = if (edtBeginDate.text.toString().isEmpty()) null else edtBeginDate.text.toString()
+            val endDate = if (edtEndDate.text.toString().isEmpty()) null else edtEndDate.text.toString()
+            transactions = transactionService.findByDate(accountId, beginDate, endDate) as ArrayList<Transaction>
         }
         if (transactions.isEmpty()) {
             Toast.makeText(this, "Nenhuma transação encontrada", Toast.LENGTH_SHORT).show()
@@ -72,22 +75,6 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         }
 
 
-    }
-
-    fun validateFieldsRequeried() : Boolean {
-        var validated = true;
-
-//        if(edtDescTransaction.text == null ||  edtDescTransaction.text.isEmpty()){
-//            edtDescTransaction.setError("Campo descrição é de preenchimento obrigatório")
-//            validated = false;
-//        }
-//
-//        if(edtValueTransaction.text == null ||  edtValueTransaction.text.isEmpty()){
-//            edtValueTransaction.setError("Campo saldo inicial é de preenchimento obrigatório")
-//            validated =  false;
-//        }
-
-        return validated;
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
