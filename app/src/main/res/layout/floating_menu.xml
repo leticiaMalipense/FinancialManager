@@ -13,7 +13,7 @@
         android:layout_alignParentBottom="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:menu_backgroundColor="#E9F7F4F4"
+        app:menu_backgroundColor="@color/grey"
         fab:menu_colorNormal="@color/main"
         fab:menu_colorPressed="@color/main"
         fab:menu_icon="@drawable/fab_add"

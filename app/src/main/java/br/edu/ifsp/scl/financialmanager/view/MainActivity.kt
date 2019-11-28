@@ -1,11 +1,14 @@
 package br.edu.ifsp.scl.financialmanager.view
 
 import android.content.Intent
+import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.financialmanager.adapter.AccountAdapter
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity() {
     object Constantes{
         val ACCOUNT = "ACCOUNT"
         val TRASACTION_LIST = "TRANSACTION_LIST"
+        val TYPE_TRANSACTION = "TYPE_TRANSACTION"
         val ACCOUNT_REQUEST_CODE = 1
         val ACCOUNT_DETAILS_REQUEST_CODE = 2
         val TRANSACTIONS_REQUEST_CODE = 3
@@ -58,10 +62,14 @@ class MainActivity : AppCompatActivity() {
         menu.close(false)
     }
 
-    private fun createAccountList() {
+    fun createAccountList() {
         val recyclerView = findViewById<RecyclerView>(R.id.accountsView)
         val layout = LinearLayoutManager(this)
         recyclerView.setLayoutManager(layout)
+
+        val simpleCallback = createSimpleCallback()
+        val itemTouchHelper = ItemTouchHelper(simpleCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         controller = MainController(this)
 
@@ -73,14 +81,61 @@ class MainActivity : AppCompatActivity() {
         //Adiciona evento de click nos itens da lista, para pagina de detalhes
         AccountAdapter.setClickListener(adapter, object : AccountAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
-                val account = adapter.accounts.get(position)
 
-                val i = Intent(applicationContext, AccountDetailsActivity::class.java)
-                i.putExtra(Constantes.ACCOUNT, account)
-                startActivityForResult(i, Constantes.ACCOUNT_DETAILS_REQUEST_CODE)
 
             }
         })
+    }
+
+    //Criar evento de desligar e excluir o item da lista
+    fun createSimpleCallback() : ItemTouchHelper.SimpleCallback{
+        return object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val account = adapter.accounts.get(viewHolder.adapterPosition)
+
+                adapter.accounts.remove(account)
+                adapter.notifyDataSetChanged()
+
+                controller.delete(account.id)
+
+                Toast.makeText(applicationContext, "Contato apagado", Toast.LENGTH_LONG).show()
+
+            }
+
+            override fun onChildDraw(
+                c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder,
+                dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+                val icon: Bitmap
+                val p = Paint()
+
+                val itemView = viewHolder.itemView
+                val height = itemView.bottom.toFloat() - itemView.top.toFloat()
+                val width = height / 3
+
+                p.color = ContextCompat.getColor(baseContext, R.color.grey)
+
+                val background = RectF(itemView.left.toFloat(), itemView.top.toFloat(), dX, itemView.bottom.toFloat())
+
+                c.drawRect(background, p)
+
+                icon = BitmapFactory.decodeResource(resources, android.R.drawable.ic_delete)
+
+                val icon_dest = RectF(itemView.left.toFloat() + width, itemView.top.toFloat() + width,
+                                itemView.left.toFloat() + 2 * width, itemView.bottom.toFloat() - width)
+
+                c.drawBitmap(icon, null, icon_dest, null)
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
+                )
+            }
+
+
+        }
+
     }
 
     //Trata retorno de outras activities para a Main

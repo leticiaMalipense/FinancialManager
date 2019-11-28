@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.toolbar.*
 class ExtractResultsActivity : AppCompatActivity() {
 
     internal lateinit var transactions: List<Transaction>
+    internal lateinit var typeTransaction: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,9 @@ class ExtractResultsActivity : AppCompatActivity() {
         if (intent.hasExtra(MainActivity.Constantes.TRASACTION_LIST)) {
             this.transactions  = intent.getParcelableArrayListExtra(MainActivity.Constantes.TRASACTION_LIST)
         }
+        if (intent.hasExtra(MainActivity.Constantes.TYPE_TRANSACTION)) {
+            this.typeTransaction  = intent.getStringExtra(MainActivity.Constantes.TYPE_TRANSACTION)
+        }
 
         supportFragmentManager.beginTransaction().replace(R.id.resultFragment,
                                ExtractResultsListFragment(this.transactions)).commit()
@@ -33,7 +37,7 @@ class ExtractResultsActivity : AppCompatActivity() {
         swit.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
            if(isChecked){
                supportFragmentManager.beginTransaction().replace(R.id.resultFragment,
-                   ExtractResultsGraphicFragment(this.transactions)).commit()
+                   ExtractResultsGraphicFragment(this.transactions, this.typeTransaction) ).commit()
            }else{
                supportFragmentManager.beginTransaction().replace(R.id.resultFragment,
                                       ExtractResultsListFragment(this.transactions)).commit()

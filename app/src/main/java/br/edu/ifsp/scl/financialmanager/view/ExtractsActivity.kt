@@ -72,6 +72,7 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         } else {
             val i = Intent(applicationContext, ExtractResultsActivity::class.java)
             i.putExtra(MainActivity.Constantes.TRASACTION_LIST, transactions)
+            i.putExtra(MainActivity.Constantes.TYPE_TRANSACTION, (spExtractType.get(0) as AppCompatTextView).text.toString())
             startActivityForResult(i, MainActivity.Constantes.EXTRACT_RESULT_REQUEST_CODE)
         }
 

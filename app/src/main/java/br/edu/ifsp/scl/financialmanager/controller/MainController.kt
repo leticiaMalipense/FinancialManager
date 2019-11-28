@@ -28,4 +28,8 @@ class MainController(val view: MainActivity) {
         return model.getCurrentBalance()
     }
 
+    fun delete(accountId: Int) {
+        model.delete(accountId)
+    }
+
 }
