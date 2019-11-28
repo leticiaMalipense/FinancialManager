@@ -105,10 +105,10 @@ class AccountDaoImpl(context: Context) : AccountDao {
     override fun findByName(name: String): Account {
         database =  dbHelper.getReadableDatabase();
 
-        lateinit var account: Account
+        var account: Account = Account()
 
         try {
-            val cursor = database.query(SqlHelper.Constants.TABLE_ACCOUNT, null, SqlHelper.Constants.KEY_DESCRIPTION+ "='" + name + "'",null, null, null, null)
+            val cursor = database.query(SqlHelper.Constants.TABLE_ACCOUNT, null, "upper(" + SqlHelper.Constants.KEY_DESCRIPTION +") " + "='" + name.toUpperCase() + "'",null, null, null, null)
             while (cursor.moveToNext()) {
                 val id = cursor.getInt(0)
                 val description = cursor.getString(1)

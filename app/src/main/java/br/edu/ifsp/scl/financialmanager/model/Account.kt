@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 //Modelo que representa a Conta, construida apartir da descrição e do saldo
-data class Account(var id: Int, var description: String, var value: Double) : Parcelable {
+data class Account(var id: Int = 0, var description: String = "", var value: Double = 0.0) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readInt(),

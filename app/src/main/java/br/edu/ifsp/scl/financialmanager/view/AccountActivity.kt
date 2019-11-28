@@ -42,18 +42,23 @@ class AccountActivity : AppCompatActivity() {
             val description = edtDescription.text.toString()
             val value = edtValue.text.toString().toDouble()
 
-            //Cria objeto account com os valores informados nos campos da tela
-            val account: Account = Account( 0, description, value)
+            if(controller.findByName(description).id <= 0) {
 
-            //Chama metodos para criação da conta na base
-            controller.createAccount(account)
+                //Cria objeto account com os valores informados nos campos da tela
+                val account: Account = Account( 0, description, value)
 
-            //Atribue account criada ao map extra para que seja possivel recupera-la após a transição para outra activity
-            setResult(RESULT_OK, Intent().putExtra(MainActivity.Constantes.ACCOUNT, account))
+                //Chama metodos para criação da conta na base
+                controller.createAccount(account)
 
-            //Cria Toast para apresentar mensagem de criação com sucesso
-            Toast.makeText(applicationContext, "Conta incluida com sucesso", Toast.LENGTH_LONG).show()
-            finish()
+                //Atribue account criada ao map extra para que seja possivel recupera-la após a transição para outra activity
+                setResult(RESULT_OK, Intent().putExtra(MainActivity.Constantes.ACCOUNT, account))
+
+                //Cria Toast para apresentar mensagem de criação com sucesso
+                Toast.makeText(applicationContext, "Conta incluida com sucesso", Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                Toast.makeText(applicationContext, "Conta já existente", Toast.LENGTH_LONG).show()
+            }
         }
 
     }

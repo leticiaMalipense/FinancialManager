@@ -28,4 +28,8 @@ class AccountController(val view: AccountActivity) {
     fun findAllAccount(): List<Account> {
         return model.findAll()
     }
+
+    fun findByName(name: String): Account {
+        return model.findByName(name)
+    }
 }
