@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
                 controller.delete(account.id)
 
-                Toast.makeText(applicationContext, "Contato apagado", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "Conta excluida", Toast.LENGTH_LONG).show()
 
             }
 
