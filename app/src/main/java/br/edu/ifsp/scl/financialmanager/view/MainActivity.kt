@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         val TRANSACTIONS_REQUEST_CODE = 3
         val EXTRACTS_REQUEST_CODE = 4
         val EXTRACT_RESULT_REQUEST_CODE = 5
+        val TRANSACTIONS_ACCOUNT_REQUEST_CODE = 6
     }
 
 
@@ -77,14 +78,6 @@ class MainActivity : AppCompatActivity() {
         adapter = AccountAdapter(controller.findAllAccount())
 
         recyclerView.setAdapter(adapter)
-
-        //Adiciona evento de click nos itens da lista, para pagina de detalhes
-        AccountAdapter.setClickListener(adapter, object : AccountAdapter.ItemClickListener {
-            override fun onItemClick(position: Int) {
-
-
-            }
-        })
     }
 
     //Criar evento de desligar e excluir o item da lista
@@ -228,6 +221,7 @@ class MainActivity : AppCompatActivity() {
                 startActivityForResult(i, Constantes.EXTRACTS_REQUEST_CODE)
             }
         })
+
     }
 
 

@@ -20,7 +20,6 @@
         fab:menu_labels_style="@style/MenuLabelsStyle"
         fab:menu_openDirection="up">
 
-
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/actAccount"
             android:layout_width="wrap_content"
@@ -31,7 +30,6 @@
             fab:fab_label="Adicionar conta"
             fab:fab_size="mini" />
 
-
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/actTransaction"
             android:layout_width="wrap_content"
@@ -41,7 +39,6 @@
             fab:fab_colorPressed="@color/main"
             fab:fab_label="Adicionar transação"
             fab:fab_size="mini" />
-
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/actExtracts"

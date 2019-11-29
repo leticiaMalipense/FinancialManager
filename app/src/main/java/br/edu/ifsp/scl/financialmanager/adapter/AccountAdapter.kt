@@ -14,7 +14,6 @@ import br.edu.ifsp.scl.financialmanager.model.Account
 class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdapter.AccountViewHolder>() {
     var accounts: MutableList<Account>
     lateinit var context: Context
-    lateinit var clickListener: ItemClickListener
 
     init {
         this.accounts = mutableListOf<Account>()
@@ -39,32 +38,14 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
     }
 
     //Classe para criacao do view holder da reciclerview
-    inner class AccountViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
+    inner class AccountViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         internal val description: TextView
         internal val value: TextView
 
         init {
             description = itemView.findViewById(R.id.txtDescription) as TextView
             value = itemView.findViewById(R.id.txtValue) as TextView
-            itemView.setOnClickListener(this)
-
-        }
-
-        override fun onClick(v: View) {
-            clickListener.onItemClick(adapterPosition)
         }
     }
-
-    interface ItemClickListener {
-        fun onItemClick(position: Int)
-    }
-
-    companion object {
-        fun setClickListener(accountAdapter: AccountAdapter, itemClickListener: ItemClickListener) {
-            accountAdapter.clickListener = itemClickListener
-        }
-    }
-
 
 }
