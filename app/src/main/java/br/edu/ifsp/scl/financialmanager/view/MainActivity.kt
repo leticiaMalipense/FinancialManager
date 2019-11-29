@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
                 val height = itemView.bottom.toFloat() - itemView.top.toFloat()
                 val width = height / 3
 
-                p.color = ContextCompat.getColor(baseContext, R.color.grey)
+                p.color = ContextCompat.getColor(baseContext, R.color.greyValue)
 
                 val background = RectF(itemView.left.toFloat(), itemView.top.toFloat(), dX, itemView.bottom.toFloat())
 
