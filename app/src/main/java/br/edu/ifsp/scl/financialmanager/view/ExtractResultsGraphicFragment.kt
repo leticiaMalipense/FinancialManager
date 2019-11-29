@@ -22,19 +22,20 @@ import kotlin.collections.HashMap
 //Fragment que exibe o resultado da pesquisa em forma de grafico
 class ExtractResultsGraphicFragment(var transactions: List<Transaction>, var typeTransaction: String): Fragment(){
 
+    val yvalues = ArrayList<Entry>()
+    val xVals = ArrayList<String>()
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         var view = inflater.inflate(R.layout.fragment_extract_results_graphic, container, false)
 
         view.pieChart.setUsePercentValues(true)
 
-        val yvalues = ArrayList<Entry>()
-        val xVals = ArrayList<String>()
         val map = HashMap<Int, Float>()
-
-        Classification.values().forEach { xVals.add(it.description) }
 
         //Agrupar as transações por classificação, assim é possivel saber quanto(%) foi gasto em cada categoria
         agroupTransactionsByClassification(map)
+
+        map.keys.forEach{ xVals.add(Classification.getEnumFromId(it).description) }
 
         //Utilizar o mapa dos valores de transações agrupados, para montar os objetos do grafico
         map.entries.forEach{ yvalues.add(Entry(it.value, it.key)) }
