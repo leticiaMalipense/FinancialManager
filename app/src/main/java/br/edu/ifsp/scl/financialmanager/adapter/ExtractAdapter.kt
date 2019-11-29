@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.enums.Classification
+import br.edu.ifsp.scl.financialmanager.enums.Period
 import br.edu.ifsp.scl.financialmanager.enums.TransactionType
 import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.model.Transaction
@@ -38,12 +39,14 @@ class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<Extra
         val classif = Classification.getEnumFromId(transaction.classificationId)
         val account = AccountService(context)
         val accountName = account.findById(transaction.accountId).description
+        val period = Period.getEnumFromId(transaction.periodId)
 
         holder.txtTrasactionDescription.setText(transaction.description)
         holder.txtAccountDescription.setText(accountName)
         holder.txtClassification.setText(classif.description)
         holder.txtTypeTransaction.setText(transactionType.description)
         holder.txtValue.setText("R$ " + transaction.value.toString())
+        holder.txtPeriod.setText("Se repete: " + period.description)
         val datePtbrString = DateUtils.getDatePtbrFromEn(transaction.transactionDate)
         holder.txtDate.setText(datePtbrString)
 
@@ -62,6 +65,7 @@ class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<Extra
         internal val txtDate: TextView
         internal val txtClassification: TextView
         internal val txtAccountDescription: TextView
+        internal val txtPeriod: TextView
 
         init {
             txtAccountDescription = itemView.findViewById(R.id.txtCellExtractAccountDescription) as TextView
@@ -70,6 +74,7 @@ class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<Extra
             txtTrasactionDescription = itemView.findViewById(R.id.txtCellExtractTrasactionDescription) as TextView
             txtTypeTransaction = itemView.findViewById(R.id.txtCellExtractTypeTransaction) as TextView
             txtValue = itemView.findViewById(R.id.txtCellExtractValue) as TextView
+            txtPeriod = itemView.findViewById(R.id.txtCellExtractPeriod) as TextView
         }
 
     }
