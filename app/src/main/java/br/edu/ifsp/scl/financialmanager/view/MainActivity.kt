@@ -95,6 +95,9 @@ class MainActivity : AppCompatActivity() {
 
                 controller.delete(account.id)
 
+                currentValue -= account.value
+                txtCurrentBalanceValue.setText(NumberFormat.getCurrencyInstance().format(currentValue))
+
                 Toast.makeText(applicationContext, "Conta excluida", Toast.LENGTH_LONG).show()
 
             }

@@ -19,6 +19,8 @@ import br.edu.ifsp.scl.financialmanager.model.Account
 import br.edu.ifsp.scl.financialmanager.model.Transaction
 import br.edu.ifsp.scl.financialmanager.service.AccountService
 import br.edu.ifsp.scl.financialmanager.service.TransactionService
+import br.edu.ifsp.scl.financialmanager.utils.MoneyMask
+import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.activity_transaction.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -44,6 +46,8 @@ class TransactionActivity : AppCompatActivity() {
         //Preencher todos os campos spinners
         fillSpinners()
 
+        edtValueTransaction.addTextChangedListener(MoneyMask.monetario(edtValueTransaction))
+
     }
 
     fun onClickCreateTransaction(v: View) {
@@ -55,8 +59,8 @@ class TransactionActivity : AppCompatActivity() {
             var accountService = AccountService(this)
 
             if (account != null) {
-                val description = edtDescTransaction.text.toString();
-                val value = edtValueTransaction.text.toString().toDouble();
+                val description = edtDescTransaction.text.toString()
+                val value = MoneyMask.unmask(edtValueTransaction).toDouble()
                 val accountId: Int = account.id
                 val classificationId = Classification.getEnumFromDescription((spClassification.get(0) as AppCompatTextView).text.toString()).id
                 val periodId = Period.getEnumFromDescription((spPeriod.get(0) as AppCompatTextView).text.toString()).id

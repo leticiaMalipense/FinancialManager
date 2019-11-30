@@ -50,14 +50,14 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:tag="1"
-                android:text="Crédito" />
+                android:text="@string/credit" />
 
             <RadioButton
                 android:id="@+id/rdDebit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:tag="2"
-                android:text="Débito" />
+                android:text="@string/debit" />
         </RadioGroup>
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
-            android:hint="Nome da transação"
+            android:hint="@string/name_transaction"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +96,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:text="Valor:"
+            android:text="@string/value"
             app:layout_constraintStart_toStartOf="@+id/edtDescTransaction"
             app:layout_constraintTop_toBottomOf="@+id/edtDescTransaction" />
 
@@ -121,7 +121,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:text="Conta:"
+            android:text="@string/account"
             app:layout_constraintStart_toStartOf="@+id/edtValueTransaction"
             app:layout_constraintTop_toBottomOf="@+id/edtValueTransaction" />
 

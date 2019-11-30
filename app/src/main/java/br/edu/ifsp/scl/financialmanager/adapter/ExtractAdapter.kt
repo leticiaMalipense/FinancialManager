@@ -16,6 +16,8 @@ import br.edu.ifsp.scl.financialmanager.model.Transaction
 import br.edu.ifsp.scl.financialmanager.service.AccountService
 import br.edu.ifsp.scl.financialmanager.service.TransactionService
 import br.edu.ifsp.scl.financialmanager.utils.DateUtils
+import kotlinx.android.synthetic.main.activity_main.*
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 
 class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<ExtractAdapter.ExtractViewHolder>(){
@@ -45,7 +47,7 @@ class ExtractAdapter(transactions: List<Transaction>):RecyclerView.Adapter<Extra
         holder.txtAccountDescription.setText(accountName)
         holder.txtClassification.setText(classif.description)
         holder.txtTypeTransaction.setText(transactionType.description)
-        holder.txtValue.setText("R$ " + transaction.value.toString())
+        holder.txtValue.setText(NumberFormat.getCurrencyInstance().format(transaction.value))
         holder.txtPeriod.setText("Se repete: " + period.description)
         val datePtbrString = DateUtils.getDatePtbrFromEn(transaction.transactionDate)
         holder.txtDate.setText(datePtbrString)

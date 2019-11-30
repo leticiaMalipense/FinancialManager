@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.controller.AccountController
 import br.edu.ifsp.scl.financialmanager.model.Account
+import br.edu.ifsp.scl.financialmanager.utils.MoneyMask
 import kotlinx.android.synthetic.main.activity_account.*
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -32,6 +33,8 @@ class AccountActivity : AppCompatActivity() {
         //Seta envoto de click ao botão de salvar
         btnCreateAccount.setOnClickListener(::onClickCreateAccount)
 
+        edtValue.addTextChangedListener(MoneyMask.monetario(edtValue))
+
     }
 
     fun onClickCreateAccount(v: View) {
@@ -40,7 +43,7 @@ class AccountActivity : AppCompatActivity() {
 
             //Recupera valores da tela
             val description = edtDescription.text.toString()
-            val value = edtValue.text.toString().toDouble()
+            val value = MoneyMask.unmask(edtValue).toDouble()
 
             if(controller.findByName(description).id <= 0) {
 
