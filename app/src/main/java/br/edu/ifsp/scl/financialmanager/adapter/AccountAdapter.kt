@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.edu.ifsp.scl.financialmanager.R
 import br.edu.ifsp.scl.financialmanager.model.Account
+import java.text.NumberFormat
 
 
 //Adapter para a recicleview de accounts
@@ -34,7 +35,7 @@ class AccountAdapter(accounts: List<Account>) : RecyclerView.Adapter<AccountAdap
 
     override fun onBindViewHolder(holder: AccountViewHolder, position: Int) {
         holder.description.setText(accounts.get(position).description)
-        holder.value.setText(accounts.get(position).value.toString())
+        holder.value.setText(NumberFormat.getCurrencyInstance().format(accounts.get(position).value))
     }
 
     //Classe para criacao do view holder da reciclerview

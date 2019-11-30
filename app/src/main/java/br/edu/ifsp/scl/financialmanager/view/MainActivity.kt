@@ -18,6 +18,7 @@ import br.edu.ifsp.scl.financialmanager.model.Account
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.floating_menu.*
 import kotlinx.android.synthetic.main.toolbar.*
+import java.text.NumberFormat
 
 
 class MainActivity : AppCompatActivity() {
@@ -35,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         val TRANSACTIONS_REQUEST_CODE = 3
         val EXTRACTS_REQUEST_CODE = 4
         val EXTRACT_RESULT_REQUEST_CODE = 5
-        val TRANSACTIONS_ACCOUNT_REQUEST_CODE = 6
     }
 
 
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         createEventsFloagtingMenu()
 
         adapter.accounts.forEach({ currentValue += it.value })
-        txtCurrentBalanceValue.setText("R$: $currentValue")
+        txtCurrentBalanceValue.setText(NumberFormat.getCurrencyInstance().format(currentValue))
 
     }
 
@@ -137,7 +137,7 @@ class MainActivity : AppCompatActivity() {
 
         //Atualiza saldo atual total
         currentValue = controller.getCurrentBalance()
-        txtCurrentBalanceValue.setText("R$: $currentValue")
+        txtCurrentBalanceValue.setText(NumberFormat.getCurrencyInstance().format(currentValue))
 
         //Trata retorno ok da AccountActivity
         if (requestCode == Constantes.ACCOUNT_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK){
