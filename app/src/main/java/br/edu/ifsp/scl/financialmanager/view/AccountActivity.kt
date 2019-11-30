@@ -57,13 +57,6 @@ class AccountActivity : AppCompatActivity() {
         // The minimum number of characters to type to show the drop down
         edtDescription.threshold = 1
 
-        // Set an item click listener for auto complete text view
-        edtDescription.onItemClickListener = AdapterView.OnItemClickListener{ parent, view, position, id->
-            val selectedItem = parent.getItemAtPosition(position).toString()
-            // Display the clicked item using toast
-            Toast.makeText(applicationContext,"Selected : $selectedItem",Toast.LENGTH_SHORT).show()
-        }
-
         // Set a focus change listener for auto complete text view
         edtDescription.onFocusChangeListener = View.OnFocusChangeListener{
                 view, b ->
