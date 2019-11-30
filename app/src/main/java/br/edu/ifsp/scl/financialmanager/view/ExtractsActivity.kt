@@ -37,13 +37,13 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
 
         var accountService = AccountService(this)
 
-        val adapterAccounts = ArrayAdapter(this, android.R.layout.simple_spinner_item, accountService.findAll())
+        val adapterAccounts = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, accountService.findAll())
         spExtractAccounts.adapter = adapterAccounts
 
-        val adapterClassification = ArrayAdapter(this, android.R.layout.simple_spinner_item, Classification.values())
+        val adapterClassification = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, Classification.values())
         spExtractClassification.adapter = adapterClassification
 
-        val adapterType = ArrayAdapter(this, android.R.layout.simple_spinner_item, TransactionType.values())
+        val adapterType = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, TransactionType.values())
         spExtractType.adapter = adapterType
 
         btnGenerateExtract.setOnClickListener(::generateExtract)
