@@ -19,7 +19,6 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +37,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:gravity="center"
-                android:text="@string/current_value" />
+                android:text="@string/current_value"
+                android:textColor="#537DF0" />
 
             <TextView
                 android:id="@+id/txtCurrentBalanceValue"
@@ -47,7 +47,9 @@
                 android:layout_alignTop="@+id/txtCurrentBalance"
                 android:layout_marginStart="10dp"
                 android:layout_toEndOf="@+id/txtCurrentBalance"
-                android:textSize="20sp" />
+                android:textColor="#000C48"
+                android:textSize="20sp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
 
@@ -56,8 +58,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accountsView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/floating_menu"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 

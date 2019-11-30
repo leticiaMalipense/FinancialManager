@@ -115,18 +115,18 @@ class TransactionActivity : AppCompatActivity() {
 
         //Criada adapter de classification com base na Enum Classification
         val adapterTypes =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, Classification.values())
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, Classification.values())
         spClassification.adapter = adapterTypes
 
         //Cria adapter de periods com base na Enum Period
         val adapterPeriods =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, Period.values())
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, Period.values())
         spPeriod.adapter = adapterPeriods
 
         //Cria adapter de accounts realizando consultando na base por accounts cadastradas
         var accountService = AccountService(this)
         val adapterAccounts =
-            ArrayAdapter(this, android.R.layout.simple_spinner_item, accountService.findAll())
+            ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, accountService.findAll())
         spAccounts.adapter = adapterAccounts
     }
 

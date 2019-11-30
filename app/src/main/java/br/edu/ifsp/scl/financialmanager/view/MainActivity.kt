@@ -95,6 +95,10 @@ class MainActivity : AppCompatActivity() {
 
                 controller.delete(account.id)
 
+                // atualiza o saldo total
+                adapter.accounts.forEach({ currentValue += it.value })
+                txtCurrentBalanceValue.setText(NumberFormat.getCurrencyInstance().format(currentValue))
+
                 Toast.makeText(applicationContext, "Conta excluida", Toast.LENGTH_LONG).show()
 
             }
