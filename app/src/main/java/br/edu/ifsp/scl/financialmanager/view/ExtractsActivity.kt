@@ -47,6 +47,7 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
         spExtractType.adapter = adapterType
 
         btnGenerateExtract.setOnClickListener(::generateExtract)
+        toogleEnableComponents()
     }
 
     fun generateExtract(v: View) {
@@ -79,6 +80,26 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
 
     }
 
+    fun toogleEnableComponents() {
+        // desabilita todos os componentes
+        spExtractAccounts.isEnabled = false
+        edtBeginDate.isEnabled = false
+        edtEndDate.isEnabled = false
+        spExtractClassification.isEnabled = false
+        spExtractType.isEnabled = false
+
+        // reabilita conforme radio selecionado
+        if (rdExtractTransection.isChecked) {
+            spExtractType.isEnabled = true
+        } else if (rdExtractType.isChecked) {
+            spExtractClassification.isEnabled = true
+        } else if (rdExtractAccount.isChecked) {
+            spExtractAccounts.isEnabled = true
+            edtBeginDate.isEnabled = true
+            edtEndDate.isEnabled = true
+        }
+    }
+
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         if (isChecked) {
             if (buttonView?.id == R.id.rdExtractAccount) {
@@ -93,6 +114,7 @@ class ExtractsActivity : AppCompatActivity(), CompoundButton.OnCheckedChangeList
                 rdExtractAccount.setChecked(false);
                 rdExtractTransection.setChecked(false);
             }
+            toogleEnableComponents()
         }
     }
 
