@@ -96,6 +96,7 @@ class MainActivity : AppCompatActivity() {
                 controller.delete(account.id)
 
                 // atualiza o saldo total
+                currentValue = 0.0
                 adapter.accounts.forEach({ currentValue += it.value })
                 txtCurrentBalanceValue.setText(NumberFormat.getCurrencyInstance().format(currentValue))
 
